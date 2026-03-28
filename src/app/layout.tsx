@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Naoe Hayato",
+  title: "Hayato Naoe",
   description: "Street Photography Portfolio",
 };
 
