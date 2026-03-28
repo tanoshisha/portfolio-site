@@ -41,11 +41,11 @@ export default function Home() {
             </p>
 
             <h1 className="mt-7 max-w-[11ch] text-[42px] leading-[0.98] tracking-[-0.04em] md:text-[76px]">
-              Fragments of everyday life, quietly observed.
+              People, Objects, Atmosphere
             </h1>
 
-            <p className="mt-8 max-w-sm text-sm leading-7 text-neutral-500 md:text-base">
-              Street photographs shaped by light, distance, and silence.
+            <p className="mt-8 max-w-md text-sm leading-7 text-neutral-500 md:text-base">
+              仕事ではポートレートや商品を、普段は街の風景も撮っています。
             </p>
 
             <a
@@ -71,9 +71,8 @@ export default function Home() {
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Intro
           </p>
-          <p className="mt-5 max-w-[22ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            Quiet observations from Tokyo and beyond — photographs built on
-            atmosphere, small tension, and passing light.
+          <p className="mt-5 max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+            人物や商品を中心に、日常の中で気になった風景も撮っています。
           </p>
         </div>
       </section>
@@ -151,11 +150,11 @@ export default function Home() {
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Statement
           </p>
-          <p className="mt-6 max-w-[22ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            I photograph brief moments that often disappear before they are
-            noticed. Through street photography, I try to preserve the mood,
-            rhythm, and small tensions of the city.
-          </p>
+          <p className="mt-6 max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+  仕事では人物や商品を撮ることが多く、<br />
+  普段は街の風景も撮っています。<br />
+  その場の空気が残る写真が好きです。
+</p>
 
           <a
   href="https://www.instagram.com/naoe_hayato/"
