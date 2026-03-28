@@ -250,7 +250,8 @@ export default function Home() {
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                SNS、プロフィール、作品撮りなどに対応しています。
+                SNS、プロフィール、作品撮り<br />
+                などに対応しています。
               </p>
             </div>
 
@@ -260,7 +261,8 @@ export default function Home() {
                 ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                ブランド、ショップ、メニュー撮影などに対応しています。
+                ブランド、ショップ、メニュー撮影<br />
+                などに対応しています。
               </p>
             </div>
 
@@ -270,13 +272,15 @@ export default function Home() {
                 ¥10,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                内容に応じてご相談ください。撮影内容に合わせて対応します。
+                内容に応じてご相談ください。<br />
+                撮影内容に合わせて対応します。
               </p>
             </div>
           </div>
 
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
-            内容や撮影時間、納品枚数に応じて変動します。まずはお気軽にご相談ください。
+            内容や撮影時間、納品枚数に応じて変動します。<br />
+            まずはお気軽にご相談ください。
           </p>
           <a
   href="https://www.instagram.com/naoe_hayato/"
