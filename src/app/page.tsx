@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-stone-50 text-neutral-900">
-      <header className="px-5 py-4 md:px-10 md:py-5 md:sticky md:top-0 md:z-50 md:bg-stone-50">
+      <header className="sticky top-0 z-50 bg-stone-50 px-5 py-4 md:px-10 md:py-5">
   <div className="mx-auto flex max-w-[1400px] items-center justify-between text-[11px] uppercase tracking-[0.24em] text-neutral-500">
     <div className="text-neutral-700">Hayato Naoe</div>
 
@@ -279,7 +279,9 @@ export default function Home() {
           </div>
 
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
-            内容や撮影時間、納品枚数に応じて変動します。<br />まずはお気軽にご相談ください。
+            内容や撮影時間、<br />
+            納品枚数に応じて変動します。<br />
+            まずはお気軽にご相談ください。
           </p>
           <a
   href="https://www.instagram.com/naoe_hayato/"
