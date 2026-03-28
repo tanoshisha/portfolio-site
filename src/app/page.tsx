@@ -18,6 +18,12 @@ export default function Home() {
             <a href="#works" className="text-neutral-400 hover:opacity-60">
   Works
 </a>
+<a href="#pricing" className="text-neutral-400 hover:opacity-60">
+  Pricing
+</a>
+<a href="#contact" className="text-neutral-400 hover:opacity-60">
+  Contact
+</a>
 <a href="#about" className="text-neutral-400 hover:opacity-60">
   About
 </a>
@@ -169,7 +175,128 @@ export default function Home() {
 </a>
         </div>
       </section>
+      <section id="pricing" className="px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
+          <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+            Pricing
+          </p>
 
+          <h2 className="mt-3 max-w-[12ch] text-[30px] font-normal tracking-[-0.03em] md:text-[54px]">
+            撮影料金
+          </h2>
+
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div>
+              <p className="text-[15px] tracking-[-0.02em]">ポートレート撮影</p>
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+                ¥15,000〜
+              </p>
+              <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
+                SNS、プロフィール、作品撮りなどに対応しています。
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[15px] tracking-[-0.02em]">商品撮影</p>
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+                ¥20,000〜
+              </p>
+              <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
+                ブランド、ショップ、メニュー撮影などに対応しています。
+              </p>
+            </div>
+
+            <div>
+              <p className="text-[15px] tracking-[-0.02em]">その他 / 要相談</p>
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+                ¥10,000〜
+              </p>
+              <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
+                内容に応じてご相談ください。撮影内容に合わせて対応します。
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
+            内容や撮影時間、納品枚数に応じて変動します。まずはお気軽にご相談ください。
+          </p>
+          <a
+  href="https://www.instagram.com/naoe_hayato/"
+  target="_blank"
+  rel="noreferrer"
+  className="mt-8 inline-block text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
+>
+  お問い合わせは Instagram から
+</a>
+        </div>
+      </section>
+            <section id="contact" className="px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
+          <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+            Contact
+          </p>
+
+          <h2 className="mt-3 max-w-[12ch] text-[30px] font-normal tracking-[-0.03em] md:text-[54px]">
+            お問い合わせ
+          </h2>
+
+          <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+                撮影のご相談やご依頼は、
+                <br />
+                下記フォームからご連絡ください。
+              </p>
+            </div>
+
+            <form
+  action="https://formspree.io/f/xojpeqan"
+  method="POST"
+  className="grid grid-cols-1 gap-6"
+>
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-300"
+                  placeholder="お名前" name="name"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-300"
+                  placeholder="メールアドレス" name="email"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+                  Message
+                </label>
+                <textarea
+                  rows={5}
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] leading-7 text-neutral-900 outline-none placeholder:text-neutral-300"
+                  placeholder="ご相談内容" name="message"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-4 inline-block w-fit text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
       <footer className="px-6 py-7 md:px-10 md:py-8">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between border-t border-black/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
   <div className="text-neutral-600">Hayato Naoe</div>
