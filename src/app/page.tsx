@@ -1,10 +1,11 @@
 const works = [
   { title: "Alone in the Neon", location: "Shibuya", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "" },
   { title: "Smoke and Silence", location: "Shinjuku", year: "2025", aspect: "aspect-[3/4]", span: "md:col-span-5", offset: "md:mt-12" },
-  { title: "Out of Place", location: "Shinjuku", year: "2026", aspect: "aspect-[4/3]", span: "md:col-span-5", offset: "md:-mt-6" },
+  { title: "Out of Place", location: "Shinjuku", year: "2026", aspect: "aspect-[3/4]", span: "md:col-span-5", offset: "md:-mt-6" },
   { title: "Moments in the Air", location: "Koenji", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "md:mt-10" },
   { title: "The Puppeteer", location: "Ueno", year: "2026", aspect: "aspect-[3/4]", span: "md:col-span-4", offset: "" },
   { title: "Masked Rhythm", location: "Shibuya", year: "2025", aspect: "aspect-[4/3]", span: "md:col-span-8", offset: "md:mt-14" },
+  { title: "Shisha Maker", location: "Koenji", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-6", offset: "md:mt-8" },
 ];
 
 export default function Home() {
