@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 const works = [
   { title: "Alone in the Neon", location: "Shibuya", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "" },
   { title: "Smoke and Silence", location: "Shinjuku", year: "2025", aspect: "aspect-[3/4]", span: "md:col-span-5", offset: "md:mt-12" },
@@ -9,35 +12,90 @@ const works = [
 ];
 
 export default function Home() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-stone-50 text-neutral-900">
-      <header className="px-6 py-4 md:px-10 md:py-5">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-          <div className="text-neutral-700">Hayato Naoe</div>
-          <nav className="flex gap-5">
-            <a href="#works" className="text-neutral-400 hover:opacity-60">
-  Works
-</a>
-<a href="#pricing" className="text-neutral-400 hover:opacity-60">
-  Pricing
-</a>
-<a href="#contact" className="text-neutral-400 hover:opacity-60">
-  Contact
-</a>
-<a href="#about" className="text-neutral-400 hover:opacity-60">
-  About
-</a>
-            <a
-  href="https://www.instagram.com/naoe_hayato/"
-  target="_blank"
-  rel="noreferrer"
-  className="text-neutral-400 hover:opacity-60"
->
-  Instagram
-</a>
-          </nav>
-        </div>
-      </header>
+      <header className="px-5 py-4 md:px-10 md:py-5">
+  <div className="mx-auto flex max-w-[1400px] items-center justify-between text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+    <div className="text-neutral-700">Hayato Naoe</div>
+
+    <nav className="hidden gap-5 md:flex">
+      <a href="#works" className="text-neutral-400 hover:opacity-60">
+        Works
+      </a>
+      <a href="#pricing" className="text-neutral-400 hover:opacity-60">
+        Pricing
+      </a>
+      <a href="#contact" className="text-neutral-400 hover:opacity-60">
+        Contact
+      </a>
+      <a href="#about" className="text-neutral-400 hover:opacity-60">
+        About
+      </a>
+      <a
+        href="https://www.instagram.com/naoe_hayato/"
+        target="_blank"
+        rel="noreferrer"
+        className="text-neutral-400 hover:opacity-60"
+      >
+        Instagram
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      onClick={() => setMenuOpen(!menuOpen)}
+      className="text-neutral-400 md:hidden"
+    >
+      Menu
+    </button>
+  </div>
+
+  {menuOpen && (
+    <div className="mx-auto mt-4 max-w-[1400px] border-t border-black/10 pt-4 md:hidden">
+      <nav className="flex flex-col gap-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
+        <a
+          href="#works"
+          className="text-neutral-400 hover:opacity-60"
+          onClick={() => setMenuOpen(false)}
+        >
+          Works
+        </a>
+        <a
+          href="#pricing"
+          className="text-neutral-400 hover:opacity-60"
+          onClick={() => setMenuOpen(false)}
+        >
+          Pricing
+        </a>
+        <a
+          href="#contact"
+          className="text-neutral-400 hover:opacity-60"
+          onClick={() => setMenuOpen(false)}
+        >
+          Contact
+        </a>
+        <a
+          href="#about"
+          className="text-neutral-400 hover:opacity-60"
+          onClick={() => setMenuOpen(false)}
+        >
+          About
+        </a>
+        <a
+          href="https://www.instagram.com/naoe_hayato/"
+          target="_blank"
+          rel="noreferrer"
+          className="text-neutral-400 hover:opacity-60"
+          onClick={() => setMenuOpen(false)}
+        >
+          Instagram
+        </a>
+      </nav>
+    </div>
+  )}
+</header>
 
       <section className="px-5 pb-14 pt-6 md:px-10 md:pb-32 md:pt-16">
         <div className="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-[0.85fr_1.15fr] md:items-end md:gap-16">
