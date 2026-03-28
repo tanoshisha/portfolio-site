@@ -45,7 +45,8 @@ export default function Home() {
             </h1>
 
             <p className="mt-8 max-w-md text-sm leading-7 text-neutral-500 md:text-base">
-              仕事ではポートレートや商品を、普段は街の風景も撮っています。
+              仕事ではポートレートや商品を、<br />
+              普段は街の風景も撮っています。
             </p>
 
             <a
@@ -72,7 +73,7 @@ export default function Home() {
             Intro
           </p>
           <p className="mt-5 max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            人物や商品を中心に、日常の中で気になった風景も撮っています。
+            人物や商品を中心に、<br />日常の中で気になった風景も撮っています。
           </p>
         </div>
       </section>
