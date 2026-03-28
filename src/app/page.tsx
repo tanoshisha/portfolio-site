@@ -73,7 +73,9 @@ export default function Home() {
             Intro
           </p>
           <p className="mt-5 max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            人物や商品を中心に、<br />日常の中で気になった風景も撮っています。
+            人物や商品を中心に、<br />
+            日常の中で気になった風景も<br />
+            撮っています。
           </p>
         </div>
       </section>
