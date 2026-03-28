@@ -1,10 +1,10 @@
 const works = [
-  { title: "Crossing", location: "Tokyo", year: "2026", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "" },
-  { title: "After Rain", location: "Shinjuku", year: "2026", aspect: "aspect-[3/4]", span: "md:col-span-5", offset: "md:mt-12" },
-  { title: "Distance", location: "Koenji", year: "2026", aspect: "aspect-[4/3]", span: "md:col-span-5", offset: "md:-mt-6" },
-  { title: "Last Train", location: "Tokyo", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "md:mt-10" },
-  { title: "Neon Silence", location: "Kabukicho", year: "2026", aspect: "aspect-[3/4]", span: "md:col-span-4", offset: "" },
-  { title: "Passing Light", location: "Shibuya", year: "2026", aspect: "aspect-[4/3]", span: "md:col-span-8", offset: "md:mt-14" },
+  { title: "Alone in the Neon", location: "Shibuya", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "" },
+  { title: "Smoke and Silence", location: "Shinjuku", year: "2025", aspect: "aspect-[3/4]", span: "md:col-span-5", offset: "md:mt-12" },
+  { title: "Out of Place", location: "Shinjuku", year: "2026", aspect: "aspect-[4/3]", span: "md:col-span-5", offset: "md:-mt-6" },
+  { title: "Moments in the Air", location: "Koenji", year: "2025", aspect: "aspect-[4/5]", span: "md:col-span-7", offset: "md:mt-10" },
+  { title: "The Puppeteer", location: "Ueno", year: "2026", aspect: "aspect-[3/4]", span: "md:col-span-4", offset: "" },
+  { title: "Masked Rhythm", location: "Shibuya", year: "2025", aspect: "aspect-[4/3]", span: "md:col-span-8", offset: "md:mt-14" },
 ];
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
     <main className="min-h-screen bg-stone-50 text-neutral-900">
       <header className="px-6 py-4 md:px-10 md:py-5">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-          <div className="text-neutral-700">Naoe Hayato</div>
+          <div className="text-neutral-700">Hayato Naoe</div>
           <nav className="flex gap-5">
             <a href="#works" className="text-neutral-400 hover:opacity-60">
   Works
@@ -36,7 +36,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-[0.85fr_1.15fr] md:items-end md:gap-16">
           <div>
             <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-              Street Photography / Tokyo
+              Photography / Tokyo
             </p>
 
             <h1 className="mt-7 max-w-[11ch] text-[42px] leading-[0.98] tracking-[-0.04em] md:text-[76px]">
@@ -169,7 +169,7 @@ export default function Home() {
 
       <footer className="px-6 py-7 md:px-10 md:py-8">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between border-t border-black/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
-  <div className="text-neutral-600">Naoe Hayato</div>
+  <div className="text-neutral-600">Hayato Naoe</div>
   <div className="flex items-center gap-4">
     <a
       href="https://www.instagram.com/naoe_hayato/"
