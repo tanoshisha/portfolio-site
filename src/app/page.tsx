@@ -418,9 +418,11 @@ export default function Home() {
           </p>
           <p
             style={{ fontFamily: '"Zen Maru Gothic", sans-serif' }}
-            className="mx-auto mt-8 max-w-[26ch] text-balance text-[22px] font-light leading-[2.1] tracking-[0.02em] text-neutral-200 md:text-[34px]"
+            className="mx-auto mt-8 max-w-[1040px] text-[16px] font-light leading-[2.2] tracking-[0.02em] text-neutral-200 md:text-[22px]"
           >
-            きれいに撮るだけなら、今はスマホでもできます。大事にしているのは、あとで見返したときに「あの時の空気」まで思い出せる一枚かどうか。
+            きれいに撮るだけなら、<wbr />今はスマホでもできます。<br />
+            大事にしているのは、<wbr />あとで見返したときに<br />
+            「あの時の空気」まで<wbr />思い出せる一枚かどうか。
           </p>
         </div>
       </section>
@@ -441,7 +443,8 @@ export default function Home() {
             Gallery
           </p>
           <p className="mt-4 max-w-[42ch] text-[13px] leading-7 text-neutral-500">
-            仕事を離れて撮りためている個人的な写真です。タップで拡大できます。
+            仕事を離れて<wbr />撮りためている個人的な写真です。<br />
+            タップで拡大できます。
           </p>
 
           <TileGallery photos={personal} />
@@ -463,19 +466,24 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="max-w-[30ch] text-balance text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
-                打ち合わせから一緒に考えて、その人・そのお店に合った一枚を撮ります。
+              <p className="max-w-[38ch] text-[19px] font-normal leading-[1.9] tracking-[-0.02em] text-neutral-200 md:text-[28px]">
+                打ち合わせから一緒に考えて、<wbr />その人・そのお店に<wbr />合った一枚を撮ります。
               </p>
 
           <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-400 md:text-[15px]">
             <p>
-              15歳のとき、カメラ好きの父からお下がりの一眼レフをもらいました。そこから15年、ずっと写真を撮り続けています。大学ではファッションサークルに入り、ストリートスナップを撮っていました。
+              15歳のとき、<wbr />カメラ好きの父から<wbr />お下がりの一眼レフを<wbr />もらいました。<br />
+              そこから15年、<wbr />ずっと写真を撮り続けています。<br />
+              大学では<wbr />ファッションサークルに入り、<wbr />ストリートスナップを<wbr />撮っていました。
             </p>
             <p>
-              卒業後はシーシャ屋で10年間働き、3年前にカメラマンとして独立。お店の空気やお客さんを間近で見てきた経験は、いまの飲食店の撮影にそのまま生きています。
+              卒業後は<wbr />シーシャ屋で10年間働き、<wbr />3年前に<wbr />カメラマンとして独立。<br />
+              お店の空気やお客さんを<wbr />間近で見てきた経験は、<wbr />いまの飲食店の撮影に<wbr />そのまま生きています。
             </p>
             <p>
-              もともとイラストも描いていたので、構図や色でその場のストーリーまで伝わる一枚を大事にしています。スタジオでもロケでも、まずはじっくり打ち合わせを。夜景をバックにしたムードのある写真も得意です。
+              もともと<wbr />イラストも描いていたので、<wbr />構図や色で<wbr />その場のストーリーまで<wbr />伝わる一枚を<wbr />大事にしています。<br />
+              スタジオでもロケでも、<wbr />まずはじっくり打ち合わせを。<br />
+              夜景をバックにした<wbr />ムードのある写真も<wbr />得意です。
             </p>
           </div>
 
@@ -509,7 +517,8 @@ export default function Home() {
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                SNSのアイコンから作品撮りまで。夜景ロケのムード撮影も得意です。
+                SNSのアイコンから<wbr />作品撮りまで。<br />
+                夜景ロケの<wbr />ムード撮影も得意です。
               </p>
             </div>
 
@@ -519,7 +528,7 @@ export default function Home() {
                 ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                内装やメニュー・ドリンクを、食べログやInstagramで映える一枚に。
+                内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。
               </p>
             </div>
 
@@ -529,13 +538,15 @@ export default function Home() {
                 ¥10,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                イベントや出張撮影など。「こんなの撮れますか？」からどうぞ。
+                イベントや出張撮影など。<br />
+                「こんなの撮れますか？」からどうぞ。
               </p>
             </div>
           </div>
 
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
-            内容や撮影時間、納品枚数に応じて変動します。まずはお気軽にご相談ください。
+            内容や撮影時間、<wbr />納品枚数に応じて変動します。<br />
+            まずはお気軽にご相談ください。
           </p>
           <a
             href="https://www.instagram.com/naoe_hayato/"
@@ -560,8 +571,9 @@ export default function Home() {
 
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <div>
-              <p className="max-w-[26ch] text-balance text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
-                「こういうの撮れますか？」だけでも大歓迎です。下のフォームからお気軽にどうぞ。
+              <p className="max-w-[38ch] text-[19px] font-normal leading-[1.9] tracking-[-0.02em] text-neutral-200 md:text-[28px]">
+                「こういうの撮れますか？」だけでも大歓迎です。<br />
+                下のフォームからお気軽にどうぞ。
               </p>
             </div>
 
