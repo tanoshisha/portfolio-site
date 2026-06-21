@@ -18,20 +18,26 @@ body {
   line-break: strict;
 }
 
-/* === オープニング：手書きサインが上から書かれて、画面ごと消える === */
-/* 縦書きのサインを上から順に見せて「書いている」風にする */
+/* === オープニング：手書きサインが上から書かれて、画面ごとゆっくり消える === */
+/* --rev をアニメートできるようにする（マスクの境目の位置） */
+@property --rev {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+/* 上から下へ、境目をぼかしながら少しずつ濃く（書いている感） */
 @keyframes signDraw {
   from {
-    clip-path: inset(0 0 100% 0);
+    --rev: -14%;
   }
   to {
-    clip-path: inset(0 0 0 0);
+    --rev: 100%;
   }
 }
-/* オープニング画面そのもののフェードアウト（JSが動かなくても必ず消える保険） */
+/* 画面ごとのフェードアウト（JSが動かなくても必ず消える保険）。後半をゆっくり */
 @keyframes openFade {
   0%,
-  72% {
+  60% {
     opacity: 1;
     visibility: visible;
   }
@@ -41,10 +47,23 @@ body {
   }
 }
 .open-overlay {
-  animation: openFade 3.2s ease forwards;
+  animation: openFade 4.6s ease-in-out forwards;
 }
 .sign-draw {
-  animation: signDraw 2s cubic-bezier(0.45, 0, 0.2, 1) both;
+  /* 上が濃く、下に向かって透明になる境目を持つマスク。--rev でその位置を動かす */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 var(--rev),
+    transparent calc(var(--rev) + 14%)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 var(--rev),
+    transparent calc(var(--rev) + 14%)
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: signDraw 2.9s cubic-bezier(0.5, 0, 0.3, 1) forwards;
 }
 
 /* ヒーロー写真のゆっくりズーム（スライドに動きを足す） */

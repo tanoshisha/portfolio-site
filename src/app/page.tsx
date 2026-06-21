@@ -66,12 +66,8 @@ function OpeningAnimation() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    if (sessionStorage.getItem("introShown")) {
-      setShow(false);
-      return;
-    }
-    sessionStorage.setItem("introShown", "1");
-    const t = setTimeout(() => setShow(false), 3200);
+    // 開くたびに毎回再生する（1回制限はしない）
+    const t = setTimeout(() => setShow(false), 4600);
     return () => clearTimeout(t);
   }, []);
 
