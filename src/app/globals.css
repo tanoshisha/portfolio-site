@@ -18,31 +18,20 @@ body {
   line-break: strict;
 }
 
-/* === オープニングのアニメーション（サイトを開いた時の名前演出） === */
-@keyframes openName {
+/* === オープニング：手書きサインが上から書かれて、画面ごと消える === */
+/* 縦書きのサインを上から順に見せて「書いている」風にする */
+@keyframes signDraw {
   from {
-    opacity: 0;
-    letter-spacing: 0.6em;
-    filter: blur(6px);
+    clip-path: inset(0 0 100% 0);
   }
   to {
-    opacity: 1;
-    letter-spacing: 0.2em;
-    filter: blur(0);
-  }
-}
-@keyframes openLine {
-  from {
-    width: 0;
-  }
-  to {
-    width: 200px;
+    clip-path: inset(0 0 0 0);
   }
 }
 /* オープニング画面そのもののフェードアウト（JSが動かなくても必ず消える保険） */
 @keyframes openFade {
   0%,
-  70% {
+  72% {
     opacity: 1;
     visibility: visible;
   }
@@ -52,14 +41,10 @@ body {
   }
 }
 .open-overlay {
-  animation: openFade 2.8s ease forwards;
+  animation: openFade 3.2s ease forwards;
 }
-.open-name {
-  animation: openName 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.open-line {
-  width: 0;
-  animation: openLine 1.1s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.sign-draw {
+  animation: signDraw 2s cubic-bezier(0.45, 0, 0.2, 1) both;
 }
 
 /* ヒーロー写真のゆっくりズーム（スライドに動きを足す） */

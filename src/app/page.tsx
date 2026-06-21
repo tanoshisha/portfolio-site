@@ -10,7 +10,6 @@ type Photo = { src: string; title?: string };
 
 // トップで全画面スライドする写真（順番に切り替わる）。
 const heroSlides = [
-  "hero",
   "IMG_9589-Enhanced-SR-Edit",
   "work-2",
   "IMG_0791",
@@ -72,7 +71,7 @@ function OpeningAnimation() {
       return;
     }
     sessionStorage.setItem("introShown", "1");
-    const t = setTimeout(() => setShow(false), 2800);
+    const t = setTimeout(() => setShow(false), 3200);
     return () => clearTimeout(t);
   }, []);
 
@@ -80,12 +79,11 @@ function OpeningAnimation() {
 
   return (
     <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-stone-50">
-      <div className="text-center">
-        <p className="open-name text-[30px] font-light tracking-[0.2em] text-neutral-900 md:text-[60px]">
-          Hayato Naoe
-        </p>
-        <div className="open-line mx-auto mt-5 h-px bg-neutral-900" />
-      </div>
+      <img
+        src="/images/gallery/signature.png"
+        alt="直江勇人"
+        className="sign-draw h-[48svh] w-auto mix-blend-multiply md:h-[60svh]"
+      />
     </div>
   );
 }
@@ -408,7 +406,17 @@ export default function Home() {
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Statement
           </p>
-          <p className="mt-6 max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+          <div className="mt-8 grid gap-10 md:grid-cols-[0.7fr_1.3fr] md:items-start md:gap-16">
+            <div className="mx-auto w-full max-w-[240px] md:max-w-[320px] md:sticky md:top-28">
+              <img
+                src="/images/gallery/hero.jpg"
+                alt="Hayato Naoe"
+                className="aspect-[4/5] w-full rounded-[50%] object-cover object-top"
+              />
+            </div>
+
+            <div>
+              <p className="max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
             打ち合わせから一緒に考えて、<br />
             その人・そのお店に<wbr />合った一枚を撮ります。
           </p>
@@ -433,6 +441,8 @@ export default function Home() {
           >
             Visit Instagram
           </a>
+            </div>
+          </div>
         </div>
       </section>
 
