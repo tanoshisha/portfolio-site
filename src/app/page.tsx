@@ -74,11 +74,11 @@ function OpeningAnimation() {
   if (!show) return null;
 
   return (
-    <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-stone-50">
+    <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-[#0e0e0e]">
       <img
         src="/images/gallery/signature.png"
         alt="直江勇人"
-        className="sign-draw h-[48svh] w-auto mix-blend-multiply md:h-[60svh]"
+        className="sign-draw h-[60svh] w-auto invert mix-blend-screen md:h-[74svh]"
       />
     </div>
   );
@@ -195,7 +195,7 @@ function TileGallery({ photos }: { photos: Photo[] }) {
             key={photo.src}
             type="button"
             onClick={() => setOpen(idx)}
-            className="group relative aspect-square overflow-hidden bg-neutral-100"
+            className="group relative aspect-square overflow-hidden bg-neutral-900"
           >
             <img
               src={`/images/gallery/${photo.src}.jpg`}
@@ -273,13 +273,13 @@ export default function Home() {
   const solid = scrolled || menuOpen;
 
   return (
-    <main className="min-h-screen bg-stone-50 text-neutral-900">
+    <main className="min-h-screen bg-[#0e0e0e] text-neutral-100">
       <OpeningAnimation />
       <VerticalName />
 
       <header
         className={`fixed inset-x-0 top-0 z-50 px-5 py-4 transition-colors duration-500 md:px-10 md:py-5 ${
-          solid ? "bg-stone-50/95 backdrop-blur-sm" : "bg-transparent"
+          solid ? "bg-[#0e0e0e]/95 backdrop-blur-sm" : "bg-transparent"
         }`}
       >
         <div
@@ -287,7 +287,7 @@ export default function Home() {
             solid ? "text-neutral-500" : "text-white"
           }`}
         >
-          <div className={solid ? "text-neutral-700" : "text-white"}>
+          <div className={solid ? "text-neutral-200" : "text-white"}>
             Hayato Naoe
           </div>
 
@@ -327,7 +327,7 @@ export default function Home() {
         </div>
 
         {menuOpen && (
-          <div className="mx-auto mt-4 max-w-[1400px] border-t border-black/10 pt-4 md:hidden">
+          <div className="mx-auto mt-4 max-w-[1400px] border-t border-white/10 pt-4 md:hidden">
             <nav className="flex flex-col gap-4 text-[11px] uppercase tracking-[0.24em] text-neutral-500">
               <a href="#works" className="hover:opacity-60" onClick={() => setMenuOpen(false)}>
                 Works
@@ -360,14 +360,16 @@ export default function Home() {
 
       <HeroSlideshow />
 
-      <section className="px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1400px] pt-10">
+      <section className="px-6 py-24 md:px-10 md:py-36">
+        <div className="intro-fade mx-auto max-w-[1400px] text-center">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Intro
           </p>
-          <p className="mt-5 max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            きれいに撮るだけなら、<br />
-            今はスマホでもできます。<br />
+          <p
+            style={{ fontFamily: '"Zen Maru Gothic", sans-serif' }}
+            className="mx-auto mt-8 max-w-[24ch] text-[22px] font-light leading-[2.1] tracking-[0.02em] text-neutral-200 md:text-[34px]"
+          >
+            きれいに撮るだけなら、<wbr />今はスマホでもできます。<br />
             大事にしているのは、<wbr />あとで見返したときに<br />
             「あの時の空気」まで<wbr />思い出せる一枚か<wbr />どうか。
           </p>
@@ -385,7 +387,7 @@ export default function Home() {
       </section>
 
       <section id="gallery" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
+        <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Gallery
           </p>
@@ -397,8 +399,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10 text-left">
+      <section
+        id="about"
+        className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
+        style={{ background: "linear-gradient(to bottom, #0e0e0e, #16241f 140px, #16241f)" }}
+      >
+        <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10 text-left">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Statement
           </p>
@@ -412,12 +418,12 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+              <p className="max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
             打ち合わせから一緒に考えて、<br />
             その人・そのお店に<wbr />合った一枚を撮ります。
           </p>
 
-          <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-600 md:text-[15px]">
+          <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-400 md:text-[15px]">
             <p>
               15歳のとき、<wbr />カメラ好きの父から<wbr />お下がりの一眼レフを<wbr />もらいました。<wbr />そこから15年、<wbr />ずっと写真を撮り続けています。<wbr />大学では<wbr />ファッションサークルに入り、<wbr />ストリートスナップを<wbr />撮っていました。
             </p>
@@ -442,8 +448,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
+      <section
+        id="pricing"
+        className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
+        style={{ background: "linear-gradient(to bottom, #16241f, #1c1526 140px, #1c1526 calc(100% - 64px), #6f6a76)" }}
+      >
+        <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Pricing
           </p>
@@ -455,7 +465,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
               <p className="text-[15px] tracking-[-0.02em]">ポートレート撮影</p>
-              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
@@ -466,7 +476,7 @@ export default function Home() {
 
             <div>
               <p className="text-[15px] tracking-[-0.02em]">飲食店撮影</p>
-              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
                 ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
@@ -477,7 +487,7 @@ export default function Home() {
 
             <div>
               <p className="text-[15px] tracking-[-0.02em]">その他 / 要相談</p>
-              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
+              <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
                 ¥10,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
@@ -503,7 +513,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
+      <section
+        id="contact"
+        className="scroll-mt-24 px-6 py-16 text-neutral-900 md:px-10 md:py-24"
+        style={{ background: "linear-gradient(to bottom, #6f6a76, #eceae5 96px, #eceae5 calc(100% - 64px), #0e0e0e)" }}
+      >
         <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Contact
@@ -515,7 +529,7 @@ export default function Home() {
 
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <div>
-              <p className="max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
+              <p className="max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-800 md:text-[32px]">
                 「こういうの撮れますか？」<wbr />だけでも大歓迎です。
                 <br />
                 下のフォームからお気軽にどうぞ。
@@ -533,7 +547,7 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-300"
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-500"
                   placeholder="お名前"
                   name="name"
                 />
@@ -545,7 +559,7 @@ export default function Home() {
                 </label>
                 <input
                   type="email"
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-300"
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-500"
                   placeholder="メールアドレス"
                   name="email"
                 />
@@ -557,7 +571,7 @@ export default function Home() {
                 </label>
                 <textarea
                   rows={5}
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] leading-7 text-neutral-900 outline-none placeholder:text-neutral-300"
+                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] leading-7 text-neutral-900 outline-none placeholder:text-neutral-500"
                   placeholder="ご相談内容"
                   name="message"
                 />
@@ -565,7 +579,7 @@ export default function Home() {
 
               <button
                 type="submit"
-                className="mt-4 inline-block w-fit text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
+                className="mt-4 inline-block w-fit text-[11px] uppercase tracking-[0.24em] text-neutral-500 hover:opacity-60"
               >
                 Send Message
               </button>
@@ -575,8 +589,8 @@ export default function Home() {
       </section>
 
       <footer className="px-6 py-7 md:px-10 md:py-8">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between border-t border-black/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
-          <div className="text-neutral-600">Hayato Naoe</div>
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
+          <div className="text-neutral-400">Hayato Naoe</div>
           <div className="flex items-center gap-4">
             <a
               href="https://www.instagram.com/naoe_hayato/"

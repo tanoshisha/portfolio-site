@@ -1,14 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500&display=swap");
 @import "tailwindcss";
 
 html {
-  background: #f7f5f2;
+  background: #0e0e0e;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: #f7f5f2;
-  color: #171717;
+  background: #0e0e0e;
+  color: #e7e5e4;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   /* 日本語が単語の途中で改行されないように。
      折り返しは句読点や <wbr /> を置いた文節の切れ目だけで起きる。
@@ -77,4 +78,21 @@ body {
 }
 .hero-zoom {
   animation: slowZoom 7s ease-out both;
+}
+
+/* Introの文章を、スクロールで入ってきたときにふわっとフェードイン */
+@keyframes introFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.intro-fade {
+  animation: introFade both linear;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
