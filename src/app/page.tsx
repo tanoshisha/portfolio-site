@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // 写真の一覧。増やすときは public/images/ に画像を入れて
 // node scripts/optimize-images.js を実行し、ここに { src: "ファイル名(拡張子なし)" } を1行足すだけ。
@@ -258,6 +258,53 @@ function TileGallery({ photos }: { photos: Photo[] }) {
   );
 }
 
+// スクロール位置に合わせて、上下どちらの方向でもフェードイン／アウトさせる。
+// 要素の中心が画面中央に近いほど濃く、画面の端へ外れるほど薄くなる。
+function FadeInOnScroll({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      // 要素の中心が画面中央からどれだけ離れているか（画面高さで正規化）
+      const offset = (rect.top + rect.height / 2 - vh / 2) / vh;
+      const m = Math.abs(offset);
+      const full = 0.1; // この範囲内は完全に表示
+      const gone = 0.5; // ここまで離れると完全に透明
+      const opacity =
+        m <= full ? 1 : m >= gone ? 0 : 1 - (m - full) / (gone - full);
+      el.style.opacity = String(opacity);
+      el.style.transform = `translateY(${offset * 24}px)`;
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-opacity duration-700 ease-out will-change-[opacity,transform] ${className}`}
+      style={{ opacity: 0 }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -412,7 +459,7 @@ export default function Home() {
       <HeroSlideshow />
 
       <section className="px-6 py-24 md:px-10 md:py-36">
-        <div className="intro-fade mx-auto max-w-[1400px] text-center">
+        <FadeInOnScroll className="mx-auto max-w-[1400px] text-center">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Intro
           </p>
@@ -424,7 +471,7 @@ export default function Home() {
             大事にしているのは、<wbr />あとで見返したときに<br />
             「あの時の空気」まで<wbr />思い出せる一枚かどうか。
           </p>
-        </div>
+        </FadeInOnScroll>
       </section>
 
       <section id="works" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
