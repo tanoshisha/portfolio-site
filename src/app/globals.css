@@ -14,9 +14,10 @@ body {
   /* 日本語が単語の途中で改行されないように。
      折り返しは句読点や <wbr /> を置いた文節の切れ目だけで起きる。
      break-word は、どうしても収まらない時だけの最終手段。 */
-  word-break: keep-all;
+  word-break: normal;
   overflow-wrap: break-word;
   line-break: strict;
+  text-wrap: pretty;
 }
 
 /* === オープニング：手書きサインが上から書かれて、画面ごとゆっくり消える === */

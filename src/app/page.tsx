@@ -263,7 +263,58 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    type RGB = [number, number, number];
+    const base: RGB = [14, 14, 14]; // Statementより前：元の黒(#0e0e0e)のまま
+    // Statement以降。各セクションが画面中央に来たとき、この色に完璧になる（寒色：青→青緑→緑）
+    const targets: { id: string; color: RGB }[] = [
+      { id: "about", color: [22, 38, 60] }, // 青
+      { id: "pricing", color: [20, 44, 54] }, // 青緑
+      { id: "contact", color: [20, 48, 44] }, // 緑
+    ];
+    const lerp = (a: RGB, b: RGB, t: number): RGB => [
+      Math.round(a[0] + (b[0] - a[0]) * t),
+      Math.round(a[1] + (b[1] - a[1]) * t),
+      Math.round(a[2] + (b[2] - a[2]) * t),
+    ];
+    const onScroll = () => {
+      const viewCenter = window.scrollY + window.innerHeight / 2;
+      // アンカー：Statementの上端=base、各セクションの中央=その色
+      const anchors: { pos: number; color: RGB }[] = [];
+      const aboutEl = document.getElementById("about");
+      if (aboutEl) {
+        const r = aboutEl.getBoundingClientRect();
+        anchors.push({ pos: r.top + window.scrollY, color: base });
+      }
+      for (const tg of targets) {
+        const el = document.getElementById(tg.id);
+        if (el) {
+          const r = el.getBoundingClientRect();
+          anchors.push({
+            pos: r.top + window.scrollY + r.height / 2,
+            color: tg.color,
+          });
+        }
+      }
+      let color: RGB = base;
+      if (anchors.length > 0) {
+        if (viewCenter <= anchors[0].pos) {
+          color = anchors[0].color;
+        } else if (viewCenter >= anchors[anchors.length - 1].pos) {
+          color = anchors[anchors.length - 1].color;
+        } else {
+          for (let i = 0; i < anchors.length - 1; i++) {
+            const a = anchors[i];
+            const b = anchors[i + 1];
+            if (viewCenter >= a.pos && viewCenter <= b.pos) {
+              color = lerp(a.color, b.color, (viewCenter - a.pos) / (b.pos - a.pos));
+              break;
+            }
+          }
+        }
+      }
+      document.body.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+      setScrolled(window.scrollY > 40);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -273,7 +324,7 @@ export default function Home() {
   const solid = scrolled || menuOpen;
 
   return (
-    <main className="min-h-screen bg-[#0e0e0e] text-neutral-100">
+    <main className="min-h-screen text-neutral-100">
       <OpeningAnimation />
       <VerticalName />
 
@@ -367,11 +418,9 @@ export default function Home() {
           </p>
           <p
             style={{ fontFamily: '"Zen Maru Gothic", sans-serif' }}
-            className="mx-auto mt-8 max-w-[24ch] text-[22px] font-light leading-[2.1] tracking-[0.02em] text-neutral-200 md:text-[34px]"
+            className="mx-auto mt-8 max-w-[26ch] text-balance text-[22px] font-light leading-[2.1] tracking-[0.02em] text-neutral-200 md:text-[34px]"
           >
-            きれいに撮るだけなら、<wbr />今はスマホでもできます。<br />
-            大事にしているのは、<wbr />あとで見返したときに<br />
-            「あの時の空気」まで<wbr />思い出せる一枚か<wbr />どうか。
+            きれいに撮るだけなら、今はスマホでもできます。大事にしているのは、あとで見返したときに「あの時の空気」まで思い出せる一枚かどうか。
           </p>
         </div>
       </section>
@@ -392,18 +441,14 @@ export default function Home() {
             Gallery
           </p>
           <p className="mt-4 max-w-[42ch] text-[13px] leading-7 text-neutral-500">
-            仕事を離れて撮りためている個人的な写真です。<wbr />タップで拡大できます。
+            仕事を離れて撮りためている個人的な写真です。タップで拡大できます。
           </p>
 
           <TileGallery photos={personal} />
         </div>
       </section>
 
-      <section
-        id="about"
-        className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
-        style={{ background: "linear-gradient(to bottom, #0e0e0e, #16241f 140px, #16241f)" }}
-      >
+      <section id="about" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10 text-left">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Statement
@@ -418,20 +463,19 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
-            打ち合わせから一緒に考えて、<br />
-            その人・そのお店に<wbr />合った一枚を撮ります。
-          </p>
+              <p className="max-w-[30ch] text-balance text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
+                打ち合わせから一緒に考えて、その人・そのお店に合った一枚を撮ります。
+              </p>
 
           <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-400 md:text-[15px]">
             <p>
-              15歳のとき、<wbr />カメラ好きの父から<wbr />お下がりの一眼レフを<wbr />もらいました。<wbr />そこから15年、<wbr />ずっと写真を撮り続けています。<wbr />大学では<wbr />ファッションサークルに入り、<wbr />ストリートスナップを<wbr />撮っていました。
+              15歳のとき、カメラ好きの父からお下がりの一眼レフをもらいました。そこから15年、ずっと写真を撮り続けています。大学ではファッションサークルに入り、ストリートスナップを撮っていました。
             </p>
             <p>
-              卒業後は<wbr />シーシャ屋で10年間働き、<wbr />3年前に<wbr />カメラマンとして独立。<wbr />お店の空気やお客さんを<wbr />間近で見てきた経験は、<wbr />いまの飲食店の撮影に<wbr />そのまま生きています。
+              卒業後はシーシャ屋で10年間働き、3年前にカメラマンとして独立。お店の空気やお客さんを間近で見てきた経験は、いまの飲食店の撮影にそのまま生きています。
             </p>
             <p>
-              もともと<wbr />イラストも描いていたので、<wbr />構図や色で<wbr />その場のストーリーまで<wbr />伝わる一枚を<wbr />大事にしています。<wbr />スタジオでもロケでも、<wbr />まずはじっくり<wbr />打ち合わせを。<wbr />夜景をバックにした<wbr />ムードのある写真も<wbr />得意です。
+              もともとイラストも描いていたので、構図や色でその場のストーリーまで伝わる一枚を大事にしています。スタジオでもロケでも、まずはじっくり打ち合わせを。夜景をバックにしたムードのある写真も得意です。
             </p>
           </div>
 
@@ -448,11 +492,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="pricing"
-        className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
-        style={{ background: "linear-gradient(to bottom, #16241f, #1c1526 140px, #1c1526 calc(100% - 64px), #6f6a76)" }}
-      >
+      <section id="pricing" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Pricing
@@ -469,8 +509,7 @@ export default function Home() {
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                SNSのアイコンから作品撮りまで。<br />
-                夜景ロケのムード撮影も得意です。
+                SNSのアイコンから作品撮りまで。夜景ロケのムード撮影も得意です。
               </p>
             </div>
 
@@ -480,8 +519,7 @@ export default function Home() {
                 ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                内装やメニュー・ドリンクを、<br />
-                食べログやInstagramで<wbr />映える一枚に。
+                内装やメニュー・ドリンクを、食べログやInstagramで映える一枚に。
               </p>
             </div>
 
@@ -491,16 +529,13 @@ export default function Home() {
                 ¥10,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                イベントや出張撮影など。<br />
-                「こんなの撮れますか？」からどうぞ。
+                イベントや出張撮影など。「こんなの撮れますか？」からどうぞ。
               </p>
             </div>
           </div>
 
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
-            内容や撮影時間、<br />
-            納品枚数に応じて変動します。<br />
-            まずはお気軽にご相談ください。
+            内容や撮影時間、納品枚数に応じて変動します。まずはお気軽にご相談ください。
           </p>
           <a
             href="https://www.instagram.com/naoe_hayato/"
@@ -513,12 +548,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="contact"
-        className="scroll-mt-24 px-6 py-16 text-neutral-900 md:px-10 md:py-24"
-        style={{ background: "linear-gradient(to bottom, #6f6a76, #eceae5 96px, #eceae5 calc(100% - 64px), #0e0e0e)" }}
-      >
-        <div className="mx-auto max-w-[1400px] border-t border-black/10 pt-10">
+      <section id="contact" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1400px] border-t border-white/10 pt-10">
           <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
             Contact
           </p>
@@ -529,10 +560,8 @@ export default function Home() {
 
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <div>
-              <p className="max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-800 md:text-[32px]">
-                「こういうの撮れますか？」<wbr />だけでも大歓迎です。
-                <br />
-                下のフォームからお気軽にどうぞ。
+              <p className="max-w-[26ch] text-balance text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-200 md:text-[32px]">
+                「こういうの撮れますか？」だけでも大歓迎です。下のフォームからお気軽にどうぞ。
               </p>
             </div>
 
@@ -547,7 +576,7 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-500"
+                  className="mt-3 w-full border-b border-white/10 bg-transparent pb-3 text-[15px] text-neutral-100 outline-none placeholder:text-neutral-600"
                   placeholder="お名前"
                   name="name"
                 />
@@ -559,7 +588,7 @@ export default function Home() {
                 </label>
                 <input
                   type="email"
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-500"
+                  className="mt-3 w-full border-b border-white/10 bg-transparent pb-3 text-[15px] text-neutral-100 outline-none placeholder:text-neutral-600"
                   placeholder="メールアドレス"
                   name="email"
                 />
@@ -571,7 +600,7 @@ export default function Home() {
                 </label>
                 <textarea
                   rows={5}
-                  className="mt-3 w-full border-b border-black/10 bg-transparent pb-3 text-[15px] leading-7 text-neutral-900 outline-none placeholder:text-neutral-500"
+                  className="mt-3 w-full border-b border-white/10 bg-transparent pb-3 text-[15px] leading-7 text-neutral-100 outline-none placeholder:text-neutral-600"
                   placeholder="ご相談内容"
                   name="message"
                 />
@@ -579,7 +608,7 @@ export default function Home() {
 
               <button
                 type="submit"
-                className="mt-4 inline-block w-fit text-[11px] uppercase tracking-[0.24em] text-neutral-500 hover:opacity-60"
+                className="mt-4 inline-block w-fit text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
               >
                 Send Message
               </button>
