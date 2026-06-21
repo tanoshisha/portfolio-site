@@ -20,7 +20,6 @@ const works: Photo[] = [
   { src: "work-4", title: "Smoke" },
   { src: "IMG_5776", title: "Night Cap" },
   { src: "work-7", title: "Behind the Bar" },
-  { src: "IMG_6503", title: "Matsuri" },
   { src: "featured", title: "Late Night" },
 ];
 
@@ -45,6 +44,7 @@ const personal: Photo[] = [
   { src: "_MG_9335-Enhanced-SR" },
   { src: "2A4A7830" },
   { src: "IMG_6542-Enhanced-SR" },
+  { src: "IMG_6503-Enhanced-SR" },
   { src: "_MG_8860-Enhanced-SR" },
   { src: "IMG_5216-Enhanced-SR" },
   { src: "IMG_6697" },
