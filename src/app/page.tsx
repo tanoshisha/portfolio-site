@@ -572,7 +572,7 @@ export default function Home() {
             <div>
               <p className="text-[15px] tracking-[-0.02em]">飲食店撮影</p>
               <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
-                ¥20,000〜
+                ¥30,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
                 内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。
@@ -580,9 +580,9 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="text-[15px] tracking-[-0.02em]">その他 / 要相談</p>
+              <p className="text-[15px] tracking-[-0.02em]">その他</p>
               <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
-                ¥10,000〜
+                応相談
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
                 イベントや出張撮影など。<br />
@@ -595,14 +595,6 @@ export default function Home() {
             内容や撮影時間、<wbr />納品枚数に応じて変動します。<br />
             まずはお気軽にご相談ください。
           </p>
-          <a
-            href="https://www.instagram.com/naoe_hayato/"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-block text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
-          >
-            お問い合わせは Instagram から
-          </a>
         </div>
       </section>
 
