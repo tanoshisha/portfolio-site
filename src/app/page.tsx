@@ -619,7 +619,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="max-w-[38ch] text-[19px] font-normal leading-[1.9] tracking-[-0.02em] text-neutral-200 md:text-[28px]">
-                「こういうの撮れますか？」だけでも大歓迎です。<br />
+                「こういうの撮れますか？」<wbr />だけでも大歓迎です。<br />
                 下のフォームからお気軽にどうぞ。
               </p>
             </div>
