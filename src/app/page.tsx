@@ -305,6 +305,54 @@ function FadeInOnScroll({
   );
 }
 
+// Instagramのロゴ（線画）。currentColorなのでヘッダーの文字色に追従する。
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="h-[18px] w-[18px]"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5.5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+// ハンバーガー（横三本線）。開いている時は×に切り替わる。
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      aria-hidden="true"
+      className="h-[20px] w-[20px]"
+    >
+      {open ? (
+        <>
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </>
+      ) : (
+        <>
+          <line x1="3" y1="7" x2="21" y2="7" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="17" x2="21" y2="17" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -389,39 +437,45 @@ export default function Home() {
             Hayato Naoe
           </div>
 
-          <nav className="hidden gap-5 md:flex">
-            <a href="#works" className="hover:opacity-60">
-              Works
-            </a>
-            <a href="#gallery" className="hover:opacity-60">
-              Gallery
-            </a>
-            <a href="#pricing" className="hover:opacity-60">
-              Pricing
-            </a>
-            <a href="#contact" className="hover:opacity-60">
-              Contact
-            </a>
-            <a href="#about" className="hover:opacity-60">
-              About
-            </a>
+          <div className="flex items-center gap-5">
+            <nav className="hidden gap-5 md:flex">
+              <a href="#works" className="hover:opacity-60">
+                Works
+              </a>
+              <a href="#gallery" className="hover:opacity-60">
+                Gallery
+              </a>
+              <a href="#pricing" className="hover:opacity-60">
+                Pricing
+              </a>
+              <a href="#contact" className="hover:opacity-60">
+                Contact
+              </a>
+              <a href="#about" className="hover:opacity-60">
+                About
+              </a>
+            </nav>
+
             <a
               href="https://www.instagram.com/naoe_hayato/"
               target="_blank"
               rel="noreferrer"
+              aria-label="Instagram"
               className="hover:opacity-60"
             >
-              Instagram
+              <InstagramIcon />
             </a>
-          </nav>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="hover:opacity-60 md:hidden"
-          >
-            Menu
-          </button>
+            <button
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="メニュー"
+              aria-expanded={menuOpen}
+              className="hover:opacity-60 md:hidden"
+            >
+              <MenuIcon open={menuOpen} />
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
@@ -441,15 +495,6 @@ export default function Home() {
               </a>
               <a href="#about" className="hover:opacity-60" onClick={() => setMenuOpen(false)}>
                 About
-              </a>
-              <a
-                href="https://www.instagram.com/naoe_hayato/"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:opacity-60"
-                onClick={() => setMenuOpen(false)}
-              >
-                Instagram
               </a>
             </nav>
           </div>
@@ -676,9 +721,10 @@ export default function Home() {
               href="https://www.instagram.com/naoe_hayato/"
               target="_blank"
               rel="noreferrer"
+              aria-label="Instagram"
               className="text-neutral-300 hover:opacity-60"
             >
-              Instagram
+              <InstagramIcon />
             </a>
             <div className="text-neutral-300">2026</div>
           </div>
