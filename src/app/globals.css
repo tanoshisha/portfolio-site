@@ -10,4 +10,10 @@ body {
   background: #f7f5f2;
   color: #171717;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* 日本語が単語の途中で改行されないように。
+     折り返しは句読点や <wbr /> を置いた文節の切れ目だけで起きる。
+     break-word は、どうしても収まらない時だけの最終手段。 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
 }

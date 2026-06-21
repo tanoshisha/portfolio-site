@@ -101,16 +101,16 @@ export default function Home() {
         <div className="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-[0.85fr_1.15fr] md:items-end md:gap-16">
           <div>
             <p className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">
-              Photography / Tokyo
+              Portrait &amp; Food / Tokyo
             </p>
 
             <h1 className="mt-7 max-w-[11ch] text-[42px] leading-[0.98] tracking-[-0.04em] md:text-[76px]">
-              People, Objects, Atmosphere
+              その場の空気ごと、撮る。
             </h1>
 
             <p className="mt-8 max-w-md text-sm leading-7 text-neutral-500 md:text-base">
-              仕事ではポートレートや商品を、<br />
-              普段は街の風景も撮っています。
+              東京で<wbr />ポートレートと飲食店の<wbr />撮影をしています。<br />
+              その人・そのお店が<wbr />いちばん良く見える瞬間を<wbr />撮ります。
             </p>
 
             <a
@@ -137,9 +137,10 @@ export default function Home() {
             Intro
           </p>
           <p className="mt-5 max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-            人物や商品を中心に、<br />
-            日常の中で気になった風景も<br />
-            撮っています。
+            きれいに撮るだけなら、<br />
+            今はスマホでもできます。<br />
+            大事にしているのは、<wbr />あとで見返したときに<br />
+            「あの時の空気」まで<wbr />思い出せる一枚か<wbr />どうか。
           </p>
         </div>
       </section>
@@ -187,10 +188,11 @@ export default function Home() {
       Featured Project
     </p>
     <h2 className="mt-4 max-w-[10ch] text-[30px] font-normal tracking-[-0.03em] md:text-[54px]">
-      Tokyo Streets
+      Neon Nights
     </h2>
     <p className="mt-5 max-w-[24ch] text-sm leading-7 text-neutral-600 md:text-base">
-      A study of fleeting moments and quiet tension in public space.
+      夜のネオン、濡れた路面、レトロな看板。<br />
+      仕事を離れて、<wbr />好きで撮りためている<wbr />個人作品です。
     </p>
   </div>
 
@@ -218,10 +220,21 @@ export default function Home() {
             Statement
           </p>
           <p className="mt-6 max-w-[30ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-  仕事では人物や商品を撮ることが多く、<br />
-  普段は街の風景も撮っています。<br />
-  その場の空気が残る写真が好きです。
-</p>
+            打ち合わせから一緒に考えて、<br />
+            その人・そのお店に<wbr />合った一枚を撮ります。
+          </p>
+
+          <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-600 md:text-[15px]">
+            <p>
+              15歳のとき、<wbr />カメラ好きの父から<wbr />お下がりの一眼レフを<wbr />もらいました。<wbr />そこから15年、<wbr />ずっと写真を撮り続けています。<wbr />大学では<wbr />ファッションサークルに入り、<wbr />ストリートスナップを<wbr />撮っていました。
+            </p>
+            <p>
+              卒業後は<wbr />シーシャ屋で10年間働き、<wbr />3年前に<wbr />カメラマンとして独立。<wbr />お店の空気やお客さんを<wbr />間近で見てきた経験は、<wbr />いまの飲食店の撮影に<wbr />そのまま生きています。
+            </p>
+            <p>
+              もともと<wbr />イラストも描いていたので、<wbr />構図や色で<wbr />その場のストーリーまで<wbr />伝わる一枚を<wbr />大事にしています。<wbr />スタジオでもロケでも、<wbr />まずはじっくり<wbr />打ち合わせを。<wbr />夜景をバックにした<wbr />ムードのある写真も<wbr />得意です。
+            </p>
+          </div>
 
           <a
   href="https://www.instagram.com/naoe_hayato/"
@@ -250,19 +263,19 @@ export default function Home() {
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                SNS、プロフィール、作品撮り<br />
-                などに対応しています。
+                SNSのアイコンから作品撮りまで。<br />
+                夜景ロケのムード撮影も得意です。
               </p>
             </div>
 
             <div>
-              <p className="text-[15px] tracking-[-0.02em]">商品撮影</p>
+              <p className="text-[15px] tracking-[-0.02em]">飲食店撮影</p>
               <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-900">
                 ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                ブランド、ショップ、メニュー撮影<br />
-                などに対応しています。
+                内装やメニュー・ドリンクを、<br />
+                食べログやInstagramで<wbr />映える一枚に。
               </p>
             </div>
 
@@ -272,8 +285,8 @@ export default function Home() {
                 ¥10,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                内容に応じてご相談ください。<br />
-                撮影内容に合わせて対応します。
+                イベントや出張撮影など。<br />
+                「こんなの撮れますか？」からどうぞ。
               </p>
             </div>
           </div>
@@ -306,9 +319,9 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="max-w-[26ch] text-[20px] font-normal leading-[1.75] tracking-[-0.02em] text-neutral-700 md:text-[32px]">
-                撮影のご相談やご依頼は、
+                「こういうの撮れますか？」<wbr />だけでも大歓迎です。
                 <br />
-                下記フォームからご連絡ください。
+                下のフォームからお気軽にどうぞ。
               </p>
             </div>
 
