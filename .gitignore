@@ -36,6 +36,13 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Original full-size photos — kept on the local PC only (too large for git/GitHub).
+# The site serves optimized copies from public/images/gallery/ (those ARE committed).
+/public/images/*.jpg
+/public/images/*.jpeg
+/public/images/*.png
+!/public/images/gallery/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
