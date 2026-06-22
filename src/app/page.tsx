@@ -609,7 +609,7 @@ export default function Home() {
                 ¥15,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
-                SNSのアイコンから<wbr />作品撮りまで。<br />
+                SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />
                 夜景ロケの<wbr />ムード撮影も得意です。
               </p>
             </div>
