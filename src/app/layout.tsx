@@ -12,9 +12,64 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Hayato Naoe",
-  description: "Street Photography Portfolio",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://hayatonaoe.vercel.app"),
+  title: {
+    default: "Hayato Naoe｜東京のフォトグラファー（ポートレート・店舗/飲食店撮影）",
+    template: "%s｜Hayato Naoe",
+  },
+  description:
+    "東京を拠点に活動するフォトグラファー Hayato Naoe のポートフォリオ。ポートレート、飲食店・店舗の内装/メニュー・ドリンク撮影（食べログ・Googleマップ・Instagram用）に対応。打ち合わせを重ね、その人・その場の“空気”ごと残す一枚を。撮影のご依頼・料金はサイトから。",
+  keywords: [
+    "フォトグラファー",
+    "カメラマン",
+    "東京",
+    "出張撮影",
+    "ポートレート撮影",
+    "飲食店撮影",
+    "店舗撮影",
+    "メニュー撮影",
+    "スナップ写真",
+    "Hayato Naoe",
+    "naoe_hayato",
+  ],
+  authors: [{ name: "Hayato Naoe" }],
+  creator: "Hayato Naoe",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "https://hayatonaoe.vercel.app/",
+    siteName: "Hayato Naoe",
+    title: "Hayato Naoe｜東京のフォトグラファー",
+    description:
+      "東京のフォトグラファー Hayato Naoe のポートフォリオ。ポートレート・飲食店/店舗撮影に対応。その瞬間の“空気”ごと残す一枚を。",
+    locale: "ja_JP",
+    images: [{ url: "/images/featured.jpg", alt: "Hayato Naoe の作品" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hayato Naoe｜東京のフォトグラファー",
+    description:
+      "東京のフォトグラファー Hayato Naoe のポートフォリオ。ポートレート・飲食店/店舗撮影に対応。",
+    images: ["/images/featured.jpg"],
+  },
+  robots: { index: true, follow: true },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Hayato Naoe",
+  url: "https://hayatonaoe.vercel.app/",
+  jobTitle: "Photographer",
+  image: "https://hayatonaoe.vercel.app/images/featured.jpg",
+  sameAs: ["https://instagram.com/naoe_hayato"],
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "Tokyo",
+    addressCountry: "JP",
+  },
+  knowsAbout: ["ポートレート撮影", "飲食店撮影", "店舗撮影", "スナップ写真"],
 };
 
 export default function RootLayout({
@@ -27,7 +82,13 @@ export default function RootLayout({
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
