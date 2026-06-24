@@ -1,65 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import photos from "@/data/photos.json";
 
-// 写真の一覧。増やすときは public/images/ に画像を入れて
-// node scripts/optimize-images.js を実行し、ここに { src: "ファイル名(拡張子なし)" } を1行足すだけ。
-// title は任意（書けばキャプションが出る／無ければ写真だけ）。
+// 写真の一覧は src/data/photos.json で管理。
+// 追加方法（手動）: public/images/ に画像を入れて node scripts/optimize-images.js を実行し、
+// photos.json の works / personal / heroSlides に { "src": "ファイル名(拡張子なし)", "title": "" } を足すだけ。
+// もしくは photo-publisher ツール（stage→review→publish）で自動追記できる。
 
 type Photo = { src: string; title?: string };
 
 // トップで全画面スライドする写真（順番に切り替わる）。
-const heroSlides = [
-  "IMG_9589-Enhanced-SR-Edit",
-  "work-2",
-  "IMG_0791",
-  "IMG_5108-Enhanced-SR",
-  "IMG_1542",
-];
+const heroSlides: string[] = photos.heroSlides;
 
 // Works = 仕事（人物・飲食店）。クライアントに見せる実績。
-const works: Photo[] = [
-  { src: "work-2", title: "Lounge" },
-  { src: "IMG_9589-Enhanced-SR-Edit", title: "Neon Portrait" },
-  { src: "work-1", title: "City Light" },
-  { src: "IMG_1542", title: "夜 / Yoru" },
-  { src: "IMG_7261", title: "Lion Lager" },
-  { src: "work-3", title: "Western" },
-  { src: "IMG_1524", title: "Sticker Wall" },
-  { src: "work-4", title: "Smoke" },
-  { src: "IMG_5776", title: "Night Cap" },
-  { src: "work-7", title: "Behind the Bar" },
-  { src: "featured", title: "Late Night" },
-];
+const works: Photo[] = photos.works;
 
 // Personal = 趣味（夜の街・ネオン・路地・祭り・動物など）。
-const personal: Photo[] = [
-  { src: "IMG_0791" },
-  { src: "IMG_5108-Enhanced-SR" },
-  { src: "IMG_0538" },
-  { src: "IMG_4513-Enhanced-SR" },
-  { src: "IMG_3809-Enhanced-SR" },
-  { src: "IMG_5375-Enhanced-SR" },
-  { src: "_MG_1988-Enhanced-SR" },
-  { src: "IMG_0547" },
-  { src: "IMG_4096-Enhanced-SR" },
-  { src: "IMG_7544-Enhanced-SR" },
-  { src: "IMG_5120-Enhanced-SR" },
-  { src: "IMG_4534-Enhanced-SR" },
-  { src: "IMG_1084" },
-  { src: "IMG_2730-Enhanced-SR" },
-  { src: "IMG_4563-Enhanced-SR" },
-  { src: "IMG_5656-Enhanced-SR" },
-  { src: "_MG_9335-Enhanced-SR" },
-  { src: "2A4A7830" },
-  { src: "IMG_6542-Enhanced-SR" },
-  { src: "IMG_6503-Enhanced-SR" },
-  { src: "_MG_8860-Enhanced-SR" },
-  { src: "IMG_5216-Enhanced-SR" },
-  { src: "IMG_6697" },
-  { src: "work-5" },
-  { src: "work-6" },
-];
+const personal: Photo[] = photos.personal;
 
 // サイトを開いた時の名前アニメーション（1セッションに1回だけ再生）。
 function OpeningAnimation() {

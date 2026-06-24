@@ -46,3 +46,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ローカルの素材コピー（元画像・フライヤー等、大容量。GitHubに上げない）
+/素材/
