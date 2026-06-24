@@ -54,6 +54,7 @@ export const metadata: Metadata = {
     images: ["/images/featured.jpg"],
   },
   robots: { index: true, follow: true },
+  verification: { google: "DF3GwHknb_Zx0iPpczWqF2m1T7hHx-4D8TU3GLLZpBs" },
 };
 
 const personJsonLd = {
