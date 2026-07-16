@@ -85,6 +85,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if('scrollRestoration' in history){history.scrollRestoration='manual';}window.addEventListener('load',function(){if(!location.hash){window.scrollTo(0,0);}});",
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
