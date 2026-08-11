@@ -5,13 +5,17 @@ import photos from "@/data/photos.json";
 
 // 写真の一覧は src/data/photos.json で管理。
 // 追加方法（手動）: public/images/ に画像を入れて node scripts/optimize-images.js を実行し、
-// photos.json の works / personal / heroSlides に { "src": "ファイル名(拡張子なし)", "title": "" } を足すだけ。
+// photos.json の works / personal に { "src": "ファイル名(拡張子なし)", "title": "" } を足すだけ
+// （heroSlides は { "src": "ファイル名", "position": "center 25%" } 形式。position は省略可）。
 // もしくは photo-publisher ツール（stage→review→publish）で自動追記できる。
 
 type Photo = { src: string; title?: string };
 
 // トップで全画面スライドする写真（順番に切り替わる）。
-const heroSlides: string[] = photos.heroSlides;
+// position = 横長の画面で切り取る位置（CSSのobject-position）。省略すると中央。
+// 縦位置の目安: "center 25%" = 上寄り（顔が上にある縦写真向け）／"center" = 中央。
+type HeroSlide = { src: string; position?: string };
+const heroSlides: HeroSlide[] = photos.heroSlides;
 
 // Works = 仕事（人物・飲食店）。クライアントに見せる実績。
 const works: Photo[] = photos.works;
@@ -56,11 +60,12 @@ function HeroSlideshow() {
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-black">
-      {heroSlides.map((src, idx) => (
+      {heroSlides.map((slide, idx) => (
         <img
-          key={src}
-          src={`/images/gallery/${src}.jpg`}
+          key={slide.src}
+          src={`/images/gallery/${slide.src}.jpg`}
           alt=""
+          style={{ objectPosition: slide.position ?? "center" }}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
             idx === active ? "opacity-100 hero-zoom" : "opacity-0"
           }`}

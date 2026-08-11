@@ -1,11 +1,11 @@
 {
   "heroSlides": [
-    "IMG_9589-Enhanced-SR-Edit",
-    "yokocho",
-    "work-2",
-    "IMG_0791",
-    "IMG_5108-Enhanced-SR",
-    "IMG_1542"
+    { "src": "IMG_9589-Enhanced-SR-Edit" },
+    { "src": "yokocho", "position": "center 25%" },
+    { "src": "work-2" },
+    { "src": "IMG_0791" },
+    { "src": "IMG_5108-Enhanced-SR" },
+    { "src": "IMG_1542" }
   ],
   "works": [
     { "src": "yokocho", "title": "Yokocho" },
