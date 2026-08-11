@@ -1,15 +1,21 @@
 {
   "heroSlides": [
     "IMG_9589-Enhanced-SR-Edit",
+    "yokocho",
     "work-2",
     "IMG_0791",
     "IMG_5108-Enhanced-SR",
     "IMG_1542"
   ],
   "works": [
+    { "src": "yokocho", "title": "Yokocho" },
     { "src": "work-2", "title": "Lounge" },
+    { "src": "downtown", "title": "Downtown" },
     { "src": "IMG_9589-Enhanced-SR-Edit", "title": "Neon Portrait" },
+    { "src": "arcade", "title": "Arcade" },
     { "src": "work-1", "title": "City Light" },
+    { "src": "backstreet", "title": "Backstreet" },
+    { "src": "shutter", "title": "Shutter" },
     { "src": "IMG_1542", "title": "夜 / Yoru" },
     { "src": "IMG_7261", "title": "Lion Lager" },
     { "src": "work-3", "title": "Western" },
