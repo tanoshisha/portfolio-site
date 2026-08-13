@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "メニュー撮影",
     "スナップ写真",
     "Hayato Naoe",
-    "naoe_hayato",
+    "hayato_naoe",
   ],
   authors: [{ name: "Hayato Naoe" }],
   creator: "Hayato Naoe",
@@ -64,7 +64,7 @@ const personJsonLd = {
   url: "https://hayatonaoe.vercel.app/",
   jobTitle: "Photographer",
   image: "https://hayatonaoe.vercel.app/images/featured.jpg",
-  sameAs: ["https://instagram.com/naoe_hayato"],
+  sameAs: ["https://instagram.com/hayato_naoe"],
   address: {
     "@type": "PostalAddress",
     addressRegion: "Tokyo",

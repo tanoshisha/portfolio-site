@@ -420,7 +420,7 @@ export default function Home() {
             </nav>
 
             <a
-              href="https://www.instagram.com/naoe_hayato/"
+              href="https://www.instagram.com/hayato_naoe/"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -543,7 +543,7 @@ export default function Home() {
           </div>
 
           <a
-            href="https://www.instagram.com/naoe_hayato/"
+            href="https://www.instagram.com/hayato_naoe/"
             target="_blank"
             rel="noreferrer"
             className="mt-10 inline-block text-[11px] uppercase tracking-[0.24em] text-neutral-400 hover:opacity-60"
@@ -681,7 +681,7 @@ export default function Home() {
           <div className="text-neutral-400">Hayato Naoe</div>
           <div className="flex items-center gap-4">
             <a
-              href="https://www.instagram.com/naoe_hayato/"
+              href="https://www.instagram.com/hayato_naoe/"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
