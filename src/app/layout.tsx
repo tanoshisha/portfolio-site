@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hayatonaoe.vercel.app"),
+  metadataBase: new URL("https://hayatonaoe.com"),
   title: {
     default: "Hayato Naoe｜東京のフォトグラファー（ポートレート・店舗/飲食店撮影）",
     template: "%s｜Hayato Naoe",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: "https://hayatonaoe.vercel.app/",
+    url: "https://hayatonaoe.com/",
     siteName: "Hayato Naoe",
     title: "Hayato Naoe｜東京のフォトグラファー",
     description:
@@ -61,9 +61,9 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Hayato Naoe",
-  url: "https://hayatonaoe.vercel.app/",
+  url: "https://hayatonaoe.com/",
   jobTitle: "Photographer",
-  image: "https://hayatonaoe.vercel.app/images/featured.jpg",
+  image: "https://hayatonaoe.com/images/featured.jpg",
   sameAs: ["https://instagram.com/hayato_naoe"],
   address: {
     "@type": "PostalAddress",
