@@ -527,6 +527,9 @@ export default function Home() {
 
           <div className="mt-8 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-400 md:text-[15px]">
             <p>
+              写真家の<span className="text-neutral-200">直江勇人</span>（なおえ はやと／Hayato Naoe）です。
+            </p>
+            <p>
               15歳のとき、<wbr />カメラ好きの父から<wbr />お下がりの一眼レフを<wbr />もらいました。<br />
               そこから15年、<wbr />ずっと写真を撮り続けています。<br />
               大学では<wbr />ファッションサークルに入り、<wbr />ストリートスナップを<wbr />撮っていました。

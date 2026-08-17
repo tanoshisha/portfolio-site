@@ -61,6 +61,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Hayato Naoe",
+  alternateName: "直江勇人",
   url: "https://hayatonaoe.com/",
   jobTitle: "Photographer",
   image: "https://hayatonaoe.com/images/featured.jpg",
@@ -71,6 +72,14 @@ const personJsonLd = {
     addressCountry: "JP",
   },
   knowsAbout: ["ポートレート撮影", "飲食店撮影", "店舗撮影", "スナップ写真"],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Hayato Naoe",
+  alternateName: "直江勇人",
+  url: "https://hayatonaoe.com/",
 };
 
 export default function RootLayout({
@@ -93,6 +102,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         {children}
       </body>
