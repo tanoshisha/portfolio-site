@@ -572,7 +572,7 @@ export default function Home() {
             <div>
               <p className="text-[15px] tracking-[-0.02em]">ポートレート撮影</p>
               <p className="mt-2 text-[20px] tracking-[-0.02em] text-neutral-100">
-                ¥15,000〜
+                ¥20,000〜
               </p>
               <p className="mt-3 max-w-[24ch] text-[13px] leading-7 text-neutral-500">
                 SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />
