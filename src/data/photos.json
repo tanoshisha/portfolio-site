@@ -8,6 +8,8 @@
     { "src": "IMG_1542" }
   ],
   "works": [
+    { "src": "2A4A6891", "title": "Drop" },
+    { "src": "2A4A6863", "title": "Selector" },
     { "src": "yokocho", "title": "Yokocho" },
     { "src": "work-2", "title": "Lounge" },
     { "src": "downtown", "title": "Downtown" },
@@ -50,6 +52,15 @@
     { "src": "IMG_5216-Enhanced-SR" },
     { "src": "IMG_6697" },
     { "src": "work-5" },
-    { "src": "work-6" }
+    { "src": "work-6" },
+    { "src": "asakusa_kaminarimon" },
+    { "src": "nezu_torii" },
+    { "src": "omotesando_keyaki" },
+    { "src": "yoyogi_torii" },
+    { "src": "shinagawa_aquarium" },
+    { "src": "hakkei_aquarium" },
+    { "src": "hakkei_park" },
+    { "src": "azabu_matsuri" },
+    { "src": "tama_halloween" }
   ]
 }
