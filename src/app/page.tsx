@@ -26,6 +26,8 @@ const catOf = (p: Photo) => p.category ?? "portrait";
 const catLabel = (id: string) => CATEGORIES.find((c) => c.id === id)?.en ?? "";
 
 const img = (src: string) => `/images/gallery/${src}.jpg`;
+// 軽いWebP版（scripts/make-variants.js がビルド時に作る）。画面幅に合う1枚だけ読まれる。
+const srcSet = (src: string) => [640, 1280, 1920].map((w) => `/images/w/${src}-${w}.webp ${w}w`).join(", ");
 
 // ---------------------------------------------------------------------------
 // サイトを開いた時のオープニング（毎回再生）。
@@ -109,8 +111,10 @@ function Marquee({
           >
             <img
               src={img(p.src)}
+              srcSet={srcSet(p.src)}
+              sizes="(min-width: 768px) 28vw, 45vw"
               alt={i < items.length ? p.title ?? "" : ""}
-              loading={i < 8 ? "eager" : "lazy"}
+              loading="lazy"
               className="h-full w-auto object-cover transition-transform duration-700 hover:scale-[1.04]"
             />
           </button>
@@ -194,6 +198,8 @@ function Lightbox({
         <img
           key={p.src}
           src={img(p.src)}
+          srcSet={srcSet(p.src)}
+          sizes="100vw"
           alt={p.title ?? ""}
           onClick={(e) => e.stopPropagation()}
           className="lb-img max-h-full max-w-full object-contain"
@@ -282,6 +288,13 @@ function Hero() {
     const t = setInterval(() => setActive((p) => (p + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
   }, []);
+  // 表示中と次の1枚だけ読み込む（最初に全部を同時に落とさない）
+  const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
+  useEffect(() => {
+    const next = (active + 1) % heroSlides.length;
+    const t = setTimeout(() => setLoaded((s) => (s.has(active) && s.has(next) ? s : new Set([...s, active, next]))), active === 0 ? 2500 : 0);
+    return () => clearTimeout(t);
+  }, [active]);
 
   return (
     <section data-hero className="relative h-[100svh] w-full overflow-hidden bg-black">
@@ -289,7 +302,10 @@ function Hero() {
         {heroSlides.map((slide, idx) => (
           <img
             key={slide.src}
-            src={img(slide.src)}
+            src={loaded.has(idx) ? img(slide.src) : undefined}
+            srcSet={loaded.has(idx) ? srcSet(slide.src) : undefined}
+            sizes="100vw"
+            fetchPriority={idx === 0 ? "high" : "low"}
             alt=""
             style={{ objectPosition: slide.position ?? "center" }}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
@@ -342,7 +358,7 @@ function ZoomScene() {
     <section data-zoom className="zoom-scene" aria-label="Portrait, Shop & Bar">
       <div className="zoom-pin">
         <div className="zoom-frame">
-          <img src={img("work-1")} alt="" loading="lazy" />
+          <img src={img("work-1")} srcSet={srcSet("work-1")} sizes="100vw" alt="" loading="lazy" />
         </div>
         <p className="zoom-text display" aria-hidden="true">
           <span>Portrait.</span>
@@ -401,6 +417,8 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
               <div className="clip relative aspect-[4/5] overflow-hidden bg-neutral-900">
                 <img
                   src={img(p.src)}
+                  srcSet={srcSet(p.src)}
+                  sizes="(min-width: 768px) 33vw, 50vw"
                   alt={p.title ?? ""}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.05]"
@@ -456,6 +474,8 @@ function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
             >
               <img
                 src={img(p.src)}
+                srcSet={srcSet(p.src)}
+                sizes="(min-width: 1024px) 17vw, 33vw"
                 alt={p.title ?? ""}
                 loading="lazy"
                 className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
@@ -822,7 +842,7 @@ function AboutPricingContact() {
           <SectionHead no="03" en="About" ja="プロフィール" />
           <div className="mt-12 grid gap-12 md:mt-16 md:grid-cols-[0.75fr_1.25fr] md:items-start md:gap-20">
             <div data-reveal className="reveal mx-auto w-full max-w-[280px] md:sticky md:top-28 md:max-w-none">
-              <img src="/images/gallery/hero.jpg" alt="Hayato Naoe" className="aspect-[4/5] w-full object-cover object-top" />
+              <img src="/images/gallery/hero.jpg" srcSet={srcSet("hero")} sizes="(min-width: 768px) 40vw, 280px" loading="lazy" alt="Hayato Naoe" className="aspect-[4/5] w-full object-cover object-top" />
               <p className="mt-3 flex justify-between font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.2em] text-neutral-500">
                 <span>Hayato Naoe</span>
                 <span>Tokyo, JP</span>
