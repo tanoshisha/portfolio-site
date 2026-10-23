@@ -82,10 +82,12 @@ body {
 
 
 /* === リニューアル（2026-10）：英字見出し・マーキー・ふわっと表示・モーダル === */
+/* 見出し：ヘッダー左上の「HAYATO NAOE」と同じ、細めの大文字ゴシック＋広い字間 */
 .display {
-  font-family: var(--font-display), "Times New Roman", serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 /* 写真が横に流れ続ける帯（2枚並べて -50% 動かし、つなぎ目なくループ） */
@@ -159,13 +161,13 @@ html.js-motion, html.js-motion body { overflow-x: clip; }
 .split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; }
 .split .ch {
   display: inline-block;
-  transform: translateY(110%) rotate(6deg);
+  transform: translateY(110%) rotate(0deg);
   transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: calc(var(--i) * 35ms + 0.1s);
 }
 .is-in .split .ch { transform: none; }
 @keyframes charRise {
-  from { transform: translateY(110%) rotate(6deg); }
+  from { transform: translateY(110%) rotate(0deg); }
   to { transform: none; }
 }
 .hero-chars .split .ch {
@@ -193,8 +195,8 @@ html.js-motion, html.js-motion body { overflow-x: clip; }
 .zoom-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.35); }
 .zoom-text {
   position: absolute; inset: 0; display: flex; flex-wrap: wrap; align-content: center; justify-content: center;
-  gap: 0 0.35em; padding: 0 24px; pointer-events: none; font-style: italic;
-  font-size: clamp(52px, 10vw, 160px); line-height: 1; color: #fff; text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
+  gap: 0.2em 0.6em; padding: 0 24px; pointer-events: none;
+  font-size: clamp(28px, 5.6vw, 88px); line-height: 1.1; color: #fff; text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
 }
 .zoom-text span { display: inline-block; opacity: 0; }
 html:not(.js-motion) .zoom-scene { height: auto; padding: 40px 0; }

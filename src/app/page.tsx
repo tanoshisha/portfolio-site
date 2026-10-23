@@ -6,12 +6,12 @@ import photos from "@/data/photos.json";
 // 写真の一覧は src/data/photos.json で管理。
 // 追加方法（手動）: public/images/ に画像を入れて node scripts/optimize-images.js を実行し、
 // photos.json の works / personal に { "src": "ファイル名(拡張子なし)", "title": "", "category": "portrait" } を足すだけ。
-// works の category は "portrait" / "dj" / "shop" のどれか。省略すると portrait 扱い。
+// works の category は "portrait" / "shop" のどちらか。省略すると portrait 扱い。
 // もしくは photo-publisher ツール（stage→review→publish）で自動追記できる。
 
 type Photo = { src: string; title?: string; category?: string };
 
-// Works = 仕事（人物・DJ・飲食店）。クライアントに見せる実績。
+// Works = 仕事（人物・飲食店）。クライアントに見せる実績。
 const works: Photo[] = photos.works;
 
 // Personal = 趣味（夜の街・ネオン・路地・祭り・動物など）。
@@ -20,7 +20,6 @@ const personal: Photo[] = photos.personal;
 const CATEGORIES: { id: string; en: string; ja: string }[] = [
   { id: "all", en: "All", ja: "すべて" },
   { id: "portrait", en: "Portrait", ja: "ポートレート" },
-  { id: "dj", en: "DJ", ja: "DJ・アーティスト" },
   { id: "shop", en: "Shop & Bar", ja: "店舗・飲食" },
 ];
 const catOf = (p: Photo) => p.category ?? "portrait";
@@ -239,7 +238,7 @@ function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: str
         <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">
           {no} — {ja}
         </p>
-        <h2 className="display mt-3 text-[48px] leading-[0.9] md:text-[96px]">
+        <h2 className="display mt-4 text-[30px] leading-[1.05] md:text-[60px]">
           <SplitChars text={en} />
         </h2>
       </div>
@@ -299,12 +298,11 @@ function Hero() {
         <p className="hero-rise text-[10px] uppercase tracking-[0.4em] text-white/75 md:text-[12px]" style={{ animationDelay: "4.3s" }}>
           Photographer / Tokyo
         </p>
-        <h1 className="hero-chars display mt-5 text-[19vw] leading-[0.9] md:text-[11vw] xl:text-[170px]">
-          <SplitChars text="Hayato" />{" "}
-          <SplitChars text="Naoe" className="italic text-white/80" />
+        <h1 className="hero-chars display mt-6 text-[10.5vw] leading-[1.05] md:text-[7vw] xl:text-[104px]">
+          <SplitChars text="Hayato Naoe" />
         </h1>
         <p className="hero-rise mt-6 text-[12px] tracking-[0.12em] text-white/80 md:text-[14px]" style={{ animationDelay: "5s" }}>
-          人物・DJ・お店を、夜の空気ごと。
+          人物とお店を、夜の空気ごと。
         </p>
       </div>
 
@@ -335,14 +333,13 @@ function PhotoBand({ onSelect }: { onSelect: (src: string) => void }) {
 // スクロールで小さな写真が全画面まで広がるシーン。
 function ZoomScene() {
   return (
-    <section data-zoom className="zoom-scene" aria-label="Portrait, DJ, Shop & Bar">
+    <section data-zoom className="zoom-scene" aria-label="Portrait, Shop & Bar">
       <div className="zoom-pin">
         <div className="zoom-frame">
-          <img src={img("2A4A6891")} alt="" loading="lazy" />
+          <img src={img("work-1")} alt="" loading="lazy" />
         </div>
         <p className="zoom-text display" aria-hidden="true">
           <span>Portrait.</span>
-          <span>DJ.</span>
           <span>Shop&nbsp;&amp;&nbsp;Bar.</span>
         </p>
       </div>
@@ -890,10 +887,10 @@ function AboutPricingContact() {
           <SectionHead no="05" en="Contact" ja="お問い合わせ" />
           <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-[1fr_1fr] md:gap-20">
             <div data-reveal className="reveal">
-              <p className="display text-[44px] leading-[0.95] md:text-[84px]">
+              <p className="display text-[28px] leading-[1.15] md:text-[52px]">
                 Let&rsquo;s make
                 <br />
-                <span className="italic text-neutral-400">something.</span>
+                <span className="text-neutral-400">something.</span>
               </p>
               <p className="mt-8 max-w-[30ch] text-[16px] leading-[1.9] text-neutral-300 md:text-[19px]">
                 「こういうの撮れますか？」<wbr />だけでも大歓迎です。<br />
