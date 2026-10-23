@@ -1,4 +1,4 @@
-// 表示を速くするため、public/images/gallery/*.jpg から
+// 表示を速くするため、public/images/gallery/ の写真（jpg / png / CMSで上げた webp）から
 // 幅 640 / 1280 / 1920px の軽い WebP 版を public/images/w/ に作る。
 // `npm run build` の前に自動で実行される（prebuild）。作成済みのものはスキップ
 // （同じ名前で写真を差し替えた時は public/images/w/ の該当ファイルを消してから実行）。
@@ -18,7 +18,7 @@ fs.mkdirSync(outDir, { recursive: true });
 (async () => {
   let made = 0;
   let skipped = 0;
-  const files = fs.readdirSync(srcDir).filter((f) => /\.jpe?g$/i.test(f));
+  const files = fs.readdirSync(srcDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f) && f !== "signature.png");
   for (const f of files) {
     const base = f.replace(/\.[^.]+$/, "");
     const inP = path.join(srcDir, f);

@@ -1,0 +1,76 @@
+# 管理画面（/admin）の設定。保存すると GitHub の main に直接コミットされ、
+# Vercel のビルドで軽量版の画像（scripts/make-variants.js）も作られて約2分で公開される。
+backend:
+  name: github
+  repo: tanoshisha/portfolio-site
+  branch: main
+  commit_messages:
+    update: "CMS: 写真一覧を更新"
+    uploadMedia: "CMS: 画像 {{path}} を追加"
+    deleteMedia: "CMS: 画像 {{path}} を削除"
+
+site_url: https://hayatonaoe.com
+display_url: https://hayatonaoe.com
+
+media_folder: public/images/gallery
+public_folder: /images/gallery
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        # スマホの大きな写真も、アップロード時に長辺2200pxのWebPへ自動で軽量化
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2200
+          height: 2200
+
+collections:
+  - name: photos
+    label: 写真
+    files:
+      - name: photos
+        label: 写真の一覧
+        file: src/data/photos.json
+        format: json
+        description: 並び順 = サイトでの表示順。ドラッグで入れ替えできます。
+        fields:
+          - name: heroSlides
+            label: トップのスライド写真
+            widget: list
+            summary: "{{fields.src}}"
+            fields:
+              - { name: src, label: 写真, widget: image }
+              - name: position
+                label: 切り取り位置
+                widget: select
+                required: false
+                default: ""
+                hint: 縦写真で顔が切れるときは「上寄り」
+                options:
+                  - { label: 中央, value: "" }
+                  - { label: 上寄り, value: "center 25%" }
+                  - { label: 下寄り, value: "center 75%" }
+          - name: works
+            label: Works（撮影実績）
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: src, label: 写真, widget: image }
+              - { name: title, label: タイトル, widget: string, required: false }
+              - name: category
+                label: カテゴリ
+                widget: select
+                default: portrait
+                options:
+                  - { label: Portrait（人物）, value: portrait }
+                  - { label: Shop & Bar（お店）, value: shop }
+          - name: personal
+            label: Gallery（個人作品）
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: src, label: 写真, widget: image }
+              - { name: title, label: タイトル, widget: string, required: false }

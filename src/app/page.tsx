@@ -5,7 +5,8 @@ import photos from "@/data/photos.json";
 
 // 写真の一覧は src/data/photos.json で管理。
 // 追加方法（手動）: public/images/ に画像を入れて node scripts/optimize-images.js を実行し、
-// photos.json の works / personal に { "src": "ファイル名(拡張子なし)", "title": "", "category": "portrait" } を足すだけ。
+// photos.json の works / personal に { "src": "/images/gallery/ファイル名.jpg", "title": "", "category": "portrait" } を足すだけ。
+// スマホからは管理画面 /admin（Sveltia CMS）で追加・並べ替えできる。
 // works の category は "portrait" / "shop" のどちらか。省略すると portrait 扱い。
 // もしくは photo-publisher ツール（stage→review→publish）で自動追記できる。
 
@@ -25,9 +26,11 @@ const CATEGORIES: { id: string; en: string; ja: string }[] = [
 const catOf = (p: Photo) => p.category ?? "portrait";
 const catLabel = (id: string) => CATEGORIES.find((c) => c.id === id)?.en ?? "";
 
-const img = (src: string) => `/images/gallery/${src}.jpg`;
+// src は「/images/gallery/xxx.jpg」のようなパス（CMS・photo-publisher が書く形）か、拡張子なしのファイル名
+const baseOf = (src: string) => src.replace(/^.*\//, "").replace(/\.[a-z0-9]+$/i, "");
+const img = (src: string) => (src.includes("/") ? src : `/images/gallery/${src}.jpg`);
 // 軽いWebP版（scripts/make-variants.js がビルド時に作る）。画面幅に合う1枚だけ読まれる。
-const srcSet = (src: string) => [640, 1280, 1920].map((w) => `/images/w/${src}-${w}.webp ${w}w`).join(", ");
+const srcSet = (src: string) => [640, 1280, 1920].map((w) => `/images/w/${baseOf(src)}-${w}.webp ${w}w`).join(", ");
 
 // ---------------------------------------------------------------------------
 // サイトを開いた時のオープニング（毎回再生）。
