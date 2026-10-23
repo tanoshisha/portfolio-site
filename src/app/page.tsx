@@ -41,7 +41,7 @@ function OpeningAnimation() {
   return (
     <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-[#f6f5f1]" aria-hidden="true">
       <div className="relative">
-        <img src="/images/gallery/signature.png" alt="" className="sign-ink h-[34svh] w-auto md:h-[40svh]" />
+        <img src="/images/gallery/signature.png" alt="" className="sign-ink h-[52svh] w-auto md:h-[62svh]" />
         <span className="open-seal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 8.5h3l1.6-2.2h6.8L17 8.5h3v10H4z" />
@@ -308,7 +308,7 @@ function Hero() {
           <SplitChars text="Hayato Naoe" />
         </h1>
         <p className="hero-rise mt-6 text-[12px] tracking-[0.12em] text-white/80 md:text-[14px]" style={{ animationDelay: "5s" }}>
-          人物とお店を、夜の空気ごと。
+          人物とお店を、空気ごと。
         </p>
       </div>
 

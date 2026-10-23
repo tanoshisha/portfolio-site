@@ -251,9 +251,9 @@ html:not(.js-motion) .zoom-text span { opacity: 1; }
     inkIn 1.8s ease-out 0.3s both;
 }
 .open-seal {
-  position: absolute; right: 8%; bottom: 10%;
+  position: absolute; right: 13%; bottom: 13%;
   display: flex; align-items: center; justify-content: center;
-  width: clamp(18px, 1.7vw, 24px); height: clamp(18px, 1.7vw, 24px); border-radius: 3px;
+  width: clamp(20px, 2vw, 28px); height: clamp(20px, 2vw, 28px); border-radius: 3px;
   background: #c8432f; color: #f6f5f1;
   animation: sealIn 1.4s ease-out 2.1s both;
 }
