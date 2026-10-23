@@ -21,3 +21,8 @@ GitHub `tanoshisha/portfolio-site` の **main に push すると Vercel が自�
 - トップは `heroSlides` の全画面スライドショー。オープニングは手書きサイン（`public/images/gallery/signature.png`）＋朱色のカメラ印。
 - キャッチコピーは「人物とお店を、空気ごと。」。
 - 動きは GSAP + Lenis（`useMotion`）。
+
+## スマホ（クラウド）の Claude Code から頼まれたとき
+- サイトは **main に入って初めて公開**される。作業ブランチに push しただけでは本番は変わらない。
+- 作業が終わったら、可能なら main へ直接 push する。できない場合は PR を作り、ユーザーに「GitHub で Merge を押すと公開されます」と伝える（PR のリンクも添える）。
+- 作業前に `git pull` で最新の main から始める（CMS からの更新が先に入っていることがある）。
