@@ -298,7 +298,7 @@ function Hero() {
         <p className="hero-rise text-[10px] uppercase tracking-[0.4em] text-white/75 md:text-[12px]" style={{ animationDelay: "4.3s" }}>
           Photographer / Tokyo
         </p>
-        <h1 className="hero-chars display mt-6 text-[10.5vw] leading-[1.05] md:text-[7vw] xl:text-[104px]">
+        <h1 className="hero-chars hero-name display mt-6 text-[13vw] leading-[1] md:text-[9vw] xl:text-[132px]">
           <SplitChars text="Hayato Naoe" />
         </h1>
         <p className="hero-rise mt-6 text-[12px] tracking-[0.12em] text-white/80 md:text-[14px]" style={{ animationDelay: "5s" }}>

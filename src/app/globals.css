@@ -221,3 +221,7 @@ html:not(.js-motion) .zoom-text span { opacity: 1; }
   .split .ch, .hero-chars .split .ch { transform: none; animation: none; transition: none; }
   .reveal-clip .clip, .reveal-clip .clip img, .reveal-clip > div:last-child { clip-path: none; transform: none; opacity: 1; transition: none; }
 }
+
+/* トップの名前：ロゴと同じ書体を太めにして横に詰める */
+.hero-name { font-weight: 600; letter-spacing: 0.05em; }
+.hero-name .split { transform: scaleX(0.78); transform-origin: center; white-space: nowrap; }
