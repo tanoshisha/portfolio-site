@@ -42,7 +42,12 @@ function OpeningAnimation() {
     <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-[#f6f5f1]" aria-hidden="true">
       <div className="relative">
         <img src="/images/gallery/signature.png" alt="" className="sign-ink h-[34svh] w-auto md:h-[40svh]" />
-        <span className="open-seal">直</span>
+        <span className="open-seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 8.5h3l1.6-2.2h6.8L17 8.5h3v10H4z" />
+            <circle cx="12" cy="13.3" r="3.3" />
+          </svg>
+        </span>
       </div>
     </div>
   );
