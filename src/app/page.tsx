@@ -28,21 +28,22 @@ const catLabel = (id: string) => CATEGORIES.find((c) => c.id === id)?.en ?? "";
 const img = (src: string) => `/images/gallery/${src}.jpg`;
 
 // ---------------------------------------------------------------------------
-// サイトを開いた時の手書きサイン（毎回再生）。
+// サイトを開いた時のオープニング（毎回再生）。
+// 生成りの画面にサインが墨のにじみのように書き順で浮かび、朱の落款が押されたあと、
+// 白い幕ごとふわっと消えてトップ写真が現れる。
 function OpeningAnimation() {
   const [show, setShow] = useState(true);
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 4600);
+    const t = setTimeout(() => setShow(false), 4500);
     return () => clearTimeout(t);
   }, []);
   if (!show) return null;
   return (
-    <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-[#0e0e0e]">
-      <img
-        src="/images/gallery/signature.png"
-        alt="直江勇人"
-        className="sign-draw h-[60svh] w-auto invert mix-blend-screen md:h-[74svh]"
-      />
+    <div className="open-overlay fixed inset-0 z-[100] flex items-center justify-center bg-[#f6f5f1]" aria-hidden="true">
+      <div className="relative">
+        <img src="/images/gallery/signature.png" alt="" className="sign-ink h-[34svh] w-auto md:h-[40svh]" />
+        <span className="open-seal">直</span>
+      </div>
     </div>
   );
 }
