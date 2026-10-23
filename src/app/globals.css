@@ -80,3 +80,71 @@ body {
   animation: slowZoom 7s ease-out both;
 }
 
+
+/* === リニューアル（2026-10）：英字見出し・マーキー・ふわっと表示・モーダル === */
+.display {
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* 写真が横に流れ続ける帯（2枚並べて -50% 動かし、つなぎ目なくループ） */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 60s linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* 画面に入ったら下から少し上がって出る */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* トップの文字：オープニングのサインが消える頃に順に出る */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-rise {
+  opacity: 0;
+  animation: heroRise 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+/* モーダル */
+@keyframes lbIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lbImg {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.lb-in { animation: lbIn 0.35s ease-out; }
+.lb-img { animation: lbImg 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* 下線が左から伸びるリンク */
+.link-line {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.4s ease, opacity 0.3s;
+}
+.link-line:hover { background-size: 100% 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .reveal, .hero-rise { opacity: 1; transform: none; animation: none; transition: none; }
+}

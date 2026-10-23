@@ -1,66 +1,219 @@
 {
   "heroSlides": [
-    { "src": "IMG_9589-Enhanced-SR-Edit" },
-    { "src": "yokocho", "position": "center 25%" },
-    { "src": "work-2" },
-    { "src": "IMG_0791" },
-    { "src": "IMG_5108-Enhanced-SR" },
-    { "src": "IMG_1542" }
+    {
+      "src": "IMG_9589-Enhanced-SR-Edit"
+    },
+    {
+      "src": "yokocho",
+      "position": "center 25%"
+    },
+    {
+      "src": "work-2"
+    },
+    {
+      "src": "IMG_0791"
+    },
+    {
+      "src": "IMG_5108-Enhanced-SR"
+    },
+    {
+      "src": "IMG_1542"
+    }
   ],
   "works": [
-    { "src": "2A4A6891", "title": "Drop" },
-    { "src": "2A4A6863", "title": "Selector" },
-    { "src": "yokocho", "title": "Yokocho" },
-    { "src": "work-2", "title": "Lounge" },
-    { "src": "downtown", "title": "Downtown" },
-    { "src": "IMG_9589-Enhanced-SR-Edit", "title": "Neon Portrait" },
-    { "src": "arcade", "title": "Arcade" },
-    { "src": "work-1", "title": "City Light" },
-    { "src": "backstreet", "title": "Backstreet" },
-    { "src": "shutter", "title": "Shutter" },
-    { "src": "IMG_1542", "title": "夜 / Yoru" },
-    { "src": "IMG_7261", "title": "Lion Lager" },
-    { "src": "work-3", "title": "Western" },
-    { "src": "IMG_1524", "title": "Sticker Wall" },
-    { "src": "work-4", "title": "Smoke" },
-    { "src": "IMG_5776", "title": "Night Cap" },
-    { "src": "work-7", "title": "Behind the Bar" },
-    { "src": "featured", "title": "Late Night" }
+    {
+      "src": "2A4A6891",
+      "title": "Drop",
+      "category": "dj"
+    },
+    {
+      "src": "2A4A6863",
+      "title": "Selector",
+      "category": "dj"
+    },
+    {
+      "src": "yokocho",
+      "title": "Yokocho",
+      "category": "portrait"
+    },
+    {
+      "src": "work-2",
+      "title": "Lounge",
+      "category": "shop"
+    },
+    {
+      "src": "downtown",
+      "title": "Downtown",
+      "category": "portrait"
+    },
+    {
+      "src": "IMG_9589-Enhanced-SR-Edit",
+      "title": "Neon Portrait",
+      "category": "portrait"
+    },
+    {
+      "src": "arcade",
+      "title": "Arcade",
+      "category": "portrait"
+    },
+    {
+      "src": "work-1",
+      "title": "City Light",
+      "category": "portrait"
+    },
+    {
+      "src": "backstreet",
+      "title": "Backstreet",
+      "category": "portrait"
+    },
+    {
+      "src": "shutter",
+      "title": "Shutter",
+      "category": "portrait"
+    },
+    {
+      "src": "IMG_1542",
+      "title": "夜 / Yoru",
+      "category": "portrait"
+    },
+    {
+      "src": "IMG_7261",
+      "title": "Lion Lager",
+      "category": "shop"
+    },
+    {
+      "src": "work-3",
+      "title": "Western",
+      "category": "portrait"
+    },
+    {
+      "src": "IMG_1524",
+      "title": "Sticker Wall",
+      "category": "portrait"
+    },
+    {
+      "src": "work-4",
+      "title": "Smoke",
+      "category": "shop"
+    },
+    {
+      "src": "IMG_5776",
+      "title": "Night Cap",
+      "category": "shop"
+    },
+    {
+      "src": "work-7",
+      "title": "Behind the Bar",
+      "category": "shop"
+    },
+    {
+      "src": "featured",
+      "title": "Late Night",
+      "category": "shop"
+    }
   ],
   "personal": [
-    { "src": "IMG_0791" },
-    { "src": "IMG_5108-Enhanced-SR" },
-    { "src": "IMG_0538" },
-    { "src": "IMG_4513-Enhanced-SR" },
-    { "src": "IMG_3809-Enhanced-SR" },
-    { "src": "IMG_5375-Enhanced-SR" },
-    { "src": "_MG_1988-Enhanced-SR" },
-    { "src": "IMG_0547" },
-    { "src": "IMG_4096-Enhanced-SR" },
-    { "src": "IMG_7544-Enhanced-SR" },
-    { "src": "IMG_5120-Enhanced-SR" },
-    { "src": "IMG_4534-Enhanced-SR" },
-    { "src": "IMG_1084" },
-    { "src": "IMG_2730-Enhanced-SR" },
-    { "src": "IMG_4563-Enhanced-SR" },
-    { "src": "IMG_5656-Enhanced-SR" },
-    { "src": "_MG_9335-Enhanced-SR" },
-    { "src": "2A4A7830" },
-    { "src": "IMG_6542-Enhanced-SR" },
-    { "src": "IMG_6503-Enhanced-SR" },
-    { "src": "_MG_8860-Enhanced-SR" },
-    { "src": "IMG_5216-Enhanced-SR" },
-    { "src": "IMG_6697" },
-    { "src": "work-5" },
-    { "src": "work-6" },
-    { "src": "asakusa_kaminarimon" },
-    { "src": "nezu_torii" },
-    { "src": "omotesando_keyaki" },
-    { "src": "yoyogi_torii" },
-    { "src": "shinagawa_aquarium" },
-    { "src": "hakkei_aquarium" },
-    { "src": "hakkei_park" },
-    { "src": "azabu_matsuri" },
-    { "src": "tama_halloween" }
+    {
+      "src": "IMG_0791"
+    },
+    {
+      "src": "IMG_5108-Enhanced-SR"
+    },
+    {
+      "src": "IMG_0538"
+    },
+    {
+      "src": "IMG_4513-Enhanced-SR"
+    },
+    {
+      "src": "IMG_3809-Enhanced-SR"
+    },
+    {
+      "src": "IMG_5375-Enhanced-SR"
+    },
+    {
+      "src": "_MG_1988-Enhanced-SR"
+    },
+    {
+      "src": "IMG_0547"
+    },
+    {
+      "src": "IMG_4096-Enhanced-SR"
+    },
+    {
+      "src": "IMG_7544-Enhanced-SR"
+    },
+    {
+      "src": "IMG_5120-Enhanced-SR"
+    },
+    {
+      "src": "IMG_4534-Enhanced-SR"
+    },
+    {
+      "src": "IMG_1084"
+    },
+    {
+      "src": "IMG_2730-Enhanced-SR"
+    },
+    {
+      "src": "IMG_4563-Enhanced-SR"
+    },
+    {
+      "src": "IMG_5656-Enhanced-SR"
+    },
+    {
+      "src": "_MG_9335-Enhanced-SR"
+    },
+    {
+      "src": "2A4A7830"
+    },
+    {
+      "src": "IMG_6542-Enhanced-SR"
+    },
+    {
+      "src": "IMG_6503-Enhanced-SR"
+    },
+    {
+      "src": "_MG_8860-Enhanced-SR"
+    },
+    {
+      "src": "IMG_5216-Enhanced-SR"
+    },
+    {
+      "src": "IMG_6697"
+    },
+    {
+      "src": "work-5"
+    },
+    {
+      "src": "work-6"
+    },
+    {
+      "src": "asakusa_kaminarimon"
+    },
+    {
+      "src": "nezu_torii"
+    },
+    {
+      "src": "omotesando_keyaki"
+    },
+    {
+      "src": "yoyogi_torii"
+    },
+    {
+      "src": "shinagawa_aquarium"
+    },
+    {
+      "src": "hakkei_aquarium"
+    },
+    {
+      "src": "hakkei_park"
+    },
+    {
+      "src": "azabu_matsuri"
+    },
+    {
+      "src": "tama_halloween"
+    }
   ]
 }
