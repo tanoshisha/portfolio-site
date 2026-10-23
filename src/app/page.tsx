@@ -154,6 +154,7 @@ function Lightbox({
     <div
       role="dialog"
       aria-modal="true"
+      data-lightbox
       className="lb-in fixed inset-0 z-[90] flex flex-col bg-black/95"
       onClick={onClose}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
@@ -238,7 +239,9 @@ function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: str
         <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">
           {no} — {ja}
         </p>
-        <h2 className="display mt-3 text-[48px] leading-[0.9] md:text-[96px]">{en}</h2>
+        <h2 className="display mt-3 text-[48px] leading-[0.9] md:text-[96px]">
+          <SplitChars text={en} />
+        </h2>
       </div>
       {children}
     </div>
@@ -246,44 +249,102 @@ function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: str
 }
 
 // ---------------------------------------------------------------------------
-// トップ：大きな名前＋作品が流れ続ける2本の帯。
-function Hero({ onSelect }: { onSelect: (src: string) => void }) {
+// トップ：全画面の写真スライドショー（従来どおり）＋名前。スクロールで写真が沈みながら拡大。
+type HeroSlide = { src: string; position?: string };
+const heroSlides: HeroSlide[] = photos.heroSlides;
+
+function SplitChars({ text, className = "" }: { text: string; className?: string }) {
+  let n = 0;
+  return (
+    <span className={`split ${className}`} aria-label={text}>
+      {text.split(" ").map((w, wi) => (
+        <span key={wi} className="split-word" aria-hidden="true">
+          {w.split("").map((c, ci) => (
+            <span key={ci} className="ch" style={{ "--i": n++ } as React.CSSProperties}>
+              {c}
+            </span>
+          ))}
+          {wi < text.split(" ").length - 1 ? "\u00a0" : ""}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function Hero() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActive((p) => (p + 1) % heroSlides.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section data-hero className="relative h-[100svh] w-full overflow-hidden bg-black">
+      <div data-hero-media className="absolute inset-0">
+        {heroSlides.map((slide, idx) => (
+          <img
+            key={slide.src}
+            src={img(slide.src)}
+            alt=""
+            style={{ objectPosition: slide.position ?? "center" }}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+              idx === active ? "opacity-100 hero-zoom" : "opacity-0"
+            }`}
+          />
+        ))}
+      </div>
+      <div data-hero-veil className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
+
+      <div data-hero-text className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
+        <p className="hero-rise text-[10px] uppercase tracking-[0.4em] text-white/75 md:text-[12px]" style={{ animationDelay: "4.3s" }}>
+          Photographer / Tokyo
+        </p>
+        <h1 className="hero-chars display mt-5 text-[19vw] leading-[0.9] md:text-[11vw] xl:text-[170px]">
+          <SplitChars text="Hayato" />{" "}
+          <SplitChars text="Naoe" className="italic text-white/80" />
+        </h1>
+        <p className="hero-rise mt-6 text-[12px] tracking-[0.12em] text-white/80 md:text-[14px]" style={{ animationDelay: "5s" }}>
+          人物・DJ・お店を、夜の空気ごと。
+        </p>
+      </div>
+
+      <a
+        href="#works"
+        className="hero-rise absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-white/70 hover:opacity-70"
+        style={{ animationDelay: "5.2s" }}
+      >
+        Scroll ↓
+      </a>
+    </section>
+  );
+}
+
+// 写真が流れる帯。スクロールの勢いで速く・斜めになる（動きは useMotion 側）。
+function PhotoBand({ onSelect }: { onSelect: (src: string) => void }) {
   const half = Math.ceil(works.length / 2);
   const rowA = works.slice(0, half);
   const rowB = [...works.slice(half), ...personal.slice(0, 4)];
   return (
-    <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-24 md:pt-28">
-      <div className="px-6 md:px-10">
-        <div className="mx-auto max-w-[1400px]">
-          <p className="hero-rise flex flex-wrap gap-x-6 gap-y-1 text-[10px] uppercase tracking-[0.32em] text-neutral-500 md:text-[11px] md:tracking-[0.4em]" style={{ animationDelay: "4.2s" }}>
-            <span>Photographer / Tokyo</span>
-            <span>Portrait — DJ — Shop &amp; Bar</span>
-          </p>
-          <h1 className="display hero-rise mt-4 text-[17vw] leading-[0.82] md:text-[13.5vw] xl:text-[200px]" style={{ animationDelay: "4.35s" }}>
-            Hayato
-            <br />
-            <span className="pl-[8vw] italic text-neutral-400">Naoe</span>
-          </h1>
-          <p
-            className="hero-rise mt-6 max-w-[30ch] text-[13px] leading-[2] text-neutral-400 md:absolute md:right-10 md:top-[38%] md:mt-0 md:max-w-[26ch] md:text-right md:text-[14px] xl:right-[calc((100vw-1400px)/2+40px)]"
-            style={{ animationDelay: "4.5s" }}
-          >
-            人物・DJ・お店を、<wbr />夜の空気ごと。<br />
-            東京で撮影しています。
-          </p>
+    <div data-band className="space-y-3 py-10 md:space-y-4 md:py-14">
+      <Marquee items={rowA} duration={70} onSelect={onSelect} height="h-[24vh] md:h-[32vh]" />
+      <Marquee items={rowB} duration={80} reverse onSelect={onSelect} height="h-[20vh] md:h-[26vh]" />
+    </div>
+  );
+}
+
+// スクロールで小さな写真が全画面まで広がるシーン。
+function ZoomScene() {
+  return (
+    <section data-zoom className="zoom-scene" aria-label="Portrait, DJ, Shop & Bar">
+      <div className="zoom-pin">
+        <div className="zoom-frame">
+          <img src={img("2A4A6891")} alt="" loading="lazy" />
         </div>
-      </div>
-
-      <div className="hero-rise mt-10 space-y-3 md:mt-12 md:space-y-4" style={{ animationDelay: "4.6s" }}>
-        <Marquee items={rowA} duration={70} onSelect={onSelect} />
-        <Marquee items={rowB} duration={80} reverse onSelect={onSelect} height="h-[20vh] md:h-[26vh]" />
-      </div>
-
-      <div className="flex items-center justify-between px-6 py-6 text-[10px] uppercase tracking-[0.3em] text-neutral-500 md:px-10">
-        <span>直江勇人 — Hayato Naoe</span>
-        <a href="#works" className="hover:text-white">
-          Scroll ↓
-        </a>
+        <p className="zoom-text display" aria-hidden="true">
+          <span>Portrait.</span>
+          <span>DJ.</span>
+          <span>Shop&nbsp;&amp;&nbsp;Bar.</span>
+        </p>
       </div>
     </section>
   );
@@ -331,10 +392,10 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
               type="button"
               onClick={() => onOpen(list, i)}
               data-reveal
-              className="reveal group text-left"
+              className="reveal-clip group text-left"
               style={{ transitionDelay: `${(i % 3) * 90}ms` }}
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-neutral-900">
+              <div className="clip relative aspect-[4/5] overflow-hidden bg-neutral-900">
                 <img
                   src={img(p.src)}
                   alt={p.title ?? ""}
@@ -442,11 +503,154 @@ const NAV = [
   { href: "#contact", label: "Contact" },
 ];
 
+// 慣性スクロール（Lenis）＋スクロール連動アニメーション（GSAP ScrollTrigger）。
+// 失敗しても・「視差効果を減らす」設定でも、ページはそのまま普通に動く。
+function useMotion(locked: boolean) {
+  const lenisRef = useRef<{ stop: () => void; start: () => void } | null>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let cleanup = () => {};
+    let cancelled = false;
+    (async () => {
+      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+        import("lenis"),
+      ]);
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add("js-motion");
+
+      const lenis = new Lenis({ duration: 1.25, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenisRef.current = lenis;
+      lenis.on("scroll", ScrollTrigger.update);
+      const raf = (time: number) => lenis.raf(time * 1000);
+      gsap.ticker.add(raf);
+      gsap.ticker.lagSmoothing(0);
+
+      // ページ内リンクはぬるっと移動
+      const onClick = (e: MouseEvent) => {
+        const t = e.target as HTMLElement;
+        const a = t.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+        if (a) {
+          const id = a.getAttribute("href")!;
+          const target = id === "#" ? 0 : (document.querySelector(id) as HTMLElement | null);
+          if (target === null) return;
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: id === "#" ? 0 : -60, duration: 1.6 });
+        }
+        // カテゴリ切替などで高さが変わったら位置を再計算
+        if (t.closest?.('[role="tab"]')) setTimeout(() => ScrollTrigger.refresh(), 80);
+      };
+      document.addEventListener("click", onClick);
+
+      const ctx = gsap.context(() => {
+        // トップ：写真が沈みながら拡大、文字は上へ抜ける
+        gsap
+          .timeline({ scrollTrigger: { trigger: "[data-hero]", start: "top top", end: "bottom top", scrub: true } })
+          .to("[data-hero-media]", { yPercent: 30, scale: 1.2, ease: "none" }, 0)
+          .to("[data-hero-text]", { yPercent: -40, opacity: 0, ease: "none" }, 0)
+          .to("[data-hero-veil]", { opacity: 0.5, ease: "none" }, 0);
+
+        // 流れる帯：スクロールの勢いで加速＆斜めに
+        const loops: gsap.core.Tween[] = [];
+        document.querySelectorAll<HTMLElement>(".marquee-track").forEach((track) => {
+          const dur = parseFloat(track.style.animationDuration) || 60;
+          track.style.animation = "none";
+          const tw = track.classList.contains("marquee-reverse")
+            ? gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, duration: dur, ease: "none", repeat: -1 })
+            : gsap.to(track, { xPercent: -50, duration: dur, ease: "none", repeat: -1 });
+          loops.push(tw);
+          track.addEventListener("mouseenter", () => gsap.to(tw, { timeScale: 0.15, duration: 0.6 }));
+          track.addEventListener("mouseleave", () => gsap.to(tw, { timeScale: 1, duration: 0.6 }));
+        });
+        const skewTo = gsap.quickTo(".marquee-track img", "skewX", { duration: 0.5, ease: "power3" });
+        lenis.on("scroll", ({ velocity }: { velocity: number }) => {
+          const v = Math.max(-40, Math.min(40, velocity));
+          loops.forEach((tw) => gsap.to(tw, { timeScale: 1 + Math.abs(v) / 4, duration: 0.3, overwrite: true }));
+          skewTo(-v * 0.25);
+        });
+        gsap.from("[data-band] .marquee", {
+          xPercent: (i: number) => (i ? 18 : -18),
+          opacity: 0,
+          duration: 1.6,
+          ease: "expo.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: "[data-band]", start: "top 92%" },
+        });
+
+        // 小さな写真 → 全画面、言葉が順に出る
+        gsap
+          .timeline({ scrollTrigger: { trigger: "[data-zoom]", start: "top top", end: "bottom bottom", scrub: 0.6 } })
+          .to(".zoom-frame", { width: "100vw", height: "100vh", borderRadius: 0, ease: "power2.inOut", duration: 1 }, 0)
+          .to(".zoom-frame img", { scale: 1, ease: "power2.inOut", duration: 1 }, 0)
+          .fromTo(".zoom-text span", { opacity: 0, y: 60 }, { opacity: 1, y: 0, stagger: 0.18, duration: 0.3 }, 0.55);
+
+        // 写真のパララックス
+        gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+          gsap.fromTo(el, { yPercent: -8 }, {
+            yPercent: 8, ease: "none",
+            scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true },
+          });
+        });
+      });
+
+      // カーソル：写真の上で「VIEW」
+      let cur: HTMLDivElement | null = null;
+      let onMove: ((e: MouseEvent) => void) | null = null;
+      let onOver: ((e: MouseEvent) => void) | null = null;
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        cur = document.createElement("div");
+        cur.className = "cursor";
+        cur.innerHTML = "<span>View</span>";
+        document.body.appendChild(cur);
+        const cx = gsap.quickTo(cur, "x", { duration: 0.35, ease: "power3" });
+        const cy = gsap.quickTo(cur, "y", { duration: 0.35, ease: "power3" });
+        onMove = (e) => { cx(e.clientX); cy(e.clientY); cur!.style.opacity = "1"; };
+        onOver = (e) => {
+          const t = e.target as HTMLElement;
+          cur!.classList.toggle("is-view", !!t.closest?.("button img, [data-view]") && !document.querySelector("[data-lightbox]"));
+        };
+        window.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseover", onOver);
+      }
+
+      const onLoad = () => ScrollTrigger.refresh();
+      window.addEventListener("load", onLoad);
+
+      cleanup = () => {
+        ctx.revert();
+        gsap.ticker.remove(raf);
+        lenis.destroy();
+        lenisRef.current = null;
+        document.removeEventListener("click", onClick);
+        window.removeEventListener("load", onLoad);
+        if (onMove) window.removeEventListener("mousemove", onMove);
+        if (onOver) document.removeEventListener("mouseover", onOver);
+        cur?.remove();
+        document.documentElement.classList.remove("js-motion");
+      };
+    })();
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
+  }, []);
+
+  // モーダル・メニューを開いている間は慣性スクロールを止める
+  useEffect(() => {
+    if (locked) lenisRef.current?.stop();
+    else lenisRef.current?.start();
+  }, [locked]);
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [lb, setLb] = useState<{ list: Photo[]; index: number; meta: boolean } | null>(null);
   const restRef = useReveal<HTMLDivElement>();
+  useMotion(!!lb || menuOpen);
 
   const openWorks = (list: Photo[], i: number) => setLb({ list, index: i, meta: true });
   const openPersonal = (list: Photo[], i: number) => setLb({ list, index: i, meta: false });
@@ -551,7 +755,8 @@ export default function Home() {
         )}
       </header>
 
-      <Hero onSelect={openFromHero} />
+      <Hero />
+      <PhotoBand onSelect={openFromHero} />
 
       {/* Intro */}
       <section className="px-6 py-24 md:px-10 md:py-40">
@@ -569,6 +774,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ZoomScene />
 
       <Works onOpen={openWorks} />
       <Gallery onOpen={openPersonal} />
