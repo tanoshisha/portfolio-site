@@ -31,7 +31,8 @@ const catLabel = (id: string) => CATEGORIES.find((c) => c.id === id)?.en ?? "";
 const baseOf = (src: string) => src.replace(/^.*\//, "").replace(/\.[a-z0-9]+$/i, "");
 const img = (src: string) => (src.includes("/") ? src : `/images/gallery/${src}.jpg`);
 // 軽いWebP版（scripts/make-variants.js がビルド時に作る）。画面幅に合う1枚だけ読まれる。
-const srcSet = (src: string) => [640, 1280, 1920].map((w) => `/images/w/${baseOf(src)}-${w}.webp ${w}w`).join(", ");
+// 960 はスマホの全画面表示用（1280 だと大きすぎることが多いので、通信量を抑える）
+const srcSet = (src: string) => [640, 960, 1280, 1920].map((w) => `/images/w/${baseOf(src)}-${w}.webp ${w}w`).join(", ");
 
 // ---------------------------------------------------------------------------
 // サイトを開いた時のオープニング（毎回再生）。

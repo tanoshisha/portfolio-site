@@ -1,5 +1,5 @@
 // 表示を速くするため、public/images/gallery/ の写真（jpg / png / CMSで上げた webp）から
-// 幅 640 / 1280 / 1920px の軽い WebP 版を public/images/w/ に作る。
+// 幅 640 / 960 / 1280 / 1920px の軽い WebP 版を public/images/w/ に作る。
 // `npm run build` の前に自動で実行される（prebuild）。作成済みのものはスキップ
 // （同じ名前で写真を差し替えた時は public/images/w/ の該当ファイルを消してから実行）。
 // photo-publisher で写真を追加した場合も、次のビルドで自動的に作られる。
@@ -10,7 +10,7 @@ const sharp = require("sharp");
 
 const srcDir = path.join(__dirname, "..", "public", "images", "gallery");
 const outDir = path.join(__dirname, "..", "public", "images", "w");
-const WIDTHS = [640, 1280, 1920];
+const WIDTHS = [640, 960, 1280, 1920];
 const QUALITY = 72;
 
 fs.mkdirSync(outDir, { recursive: true });
