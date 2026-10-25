@@ -888,7 +888,7 @@ function AboutPricingContact() {
           <div className="mt-12 grid grid-cols-1 border-t border-white/10 md:mt-16 md:grid-cols-3 md:border-t-0">
             {[
               { no: "A", t: "ポートレート撮影", p: "¥30,000〜", d: <>SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />夜景ロケの<wbr />ムード撮影も得意です。</> },
-              { no: "B", t: "飲食店撮影", p: "¥30,000〜", d: <>内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。</> },
+              { no: "B", t: "飲食店撮影", p: "¥50,000〜", d: <>内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。</> },
               { no: "C", t: "その他", p: "応相談", d: <>イベントや出張撮影など。<br />「こんなの撮れますか？」からどうぞ。</> },
             ].map((x, i) => (
               <div
