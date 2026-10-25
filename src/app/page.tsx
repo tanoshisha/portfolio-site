@@ -884,26 +884,41 @@ function AboutPricingContact() {
 
       <section id="pricing" className="scroll-mt-20 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1400px]">
-          <SectionHead no="04" en="Pricing" ja="撮影料金" />
-          <div className="mt-12 grid grid-cols-1 border-t border-white/10 md:mt-16 md:grid-cols-3 md:border-t-0">
+          <SectionHead no="04" en="Pricing" ja="料金" />
+          <div className="mt-12 grid grid-cols-1 border-t border-white/10 md:mt-16 md:grid-cols-2 md:border-t-0 lg:grid-cols-4">
             {[
               { no: "A", t: "ポートレート撮影", p: "¥30,000〜", d: <>SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />夜景ロケの<wbr />ムード撮影も得意です。</> },
               { no: "B", t: "飲食店撮影", p: "¥50,000〜", d: <>内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。</> },
-              { no: "C", t: "その他", p: "応相談", d: <>イベントや出張撮影など。<br />「こんなの撮れますか？」からどうぞ。</> },
+              { no: "D", t: "Webサイト制作", p: "¥50,000〜", sub: "撮影セット ¥120,000〜", d: <>プロフィールサイトや<wbr />お店の紹介ページを<wbr />1ページで。<br />撮影とセットなら、<wbr />写真もサイトも<wbr />まとめてお任せいただけます。</> },
+              { no: "E", t: "その他", p: "応相談", d: <>イベントや出張撮影など。<br />「こんなの撮れますか？」からどうぞ。</> },
             ].map((x, i) => (
               <div
                 key={x.no}
                 data-reveal
-                className={`reveal border-b border-white/10 py-8 md:border-b-0 md:border-l md:px-8 md:py-4 ${i === 0 ? "md:border-l-0 md:pl-0" : ""}`}
+                className={`reveal border-b border-white/10 py-8 md:border-b-0 md:py-6 lg:py-4 ${
+                  i % 2 === 0 ? "md:border-l-0 md:pl-0 md:pr-8" : "md:border-l md:px-8"
+                } ${i >= 2 ? "md:border-t md:pt-8" : ""} ${
+                  i === 0 ? "lg:border-l-0 lg:pl-0 lg:pr-8" : "lg:border-l lg:px-8"
+                } ${i >= 2 ? "lg:border-t-0" : ""}`}
                 style={{ transitionDelay: `${i * 90}ms` }}
               >
                 <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">{x.no}</p>
                 <p className="mt-4 text-[16px] tracking-[-0.01em] text-neutral-200">{x.t}</p>
-                <p className="display mt-3 text-[40px] leading-none md:text-[52px]">{x.p}</p>
+                <p className="display mt-3 text-[40px] leading-none md:text-[48px]">{x.p}</p>
+                {x.sub && (
+                  <p className="mt-3 text-[12px] tracking-[0.02em] text-neutral-400">{x.sub}</p>
+                )}
                 <p className="mt-5 max-w-[26ch] text-[13px] leading-7 text-neutral-500">{x.d}</p>
               </div>
             ))}
           </div>
+
+          <div data-reveal className="reveal mt-10 space-y-1.5 text-[12px] leading-6 text-neutral-500">
+            <p>・ブログ・お知らせ更新機能（ご自身で更新できる管理画面）… +¥30,000〜</p>
+            <p>・更新代行プラン … 月¥5,000〜</p>
+            <p>・ドメイン・サーバー費用は実費となります</p>
+          </div>
+
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
             内容や撮影時間、<wbr />納品枚数に応じて変動します。<br />
             まずはお気軽にご相談ください。
@@ -928,6 +943,21 @@ function AboutPricingContact() {
             </div>
 
             <form data-reveal action="https://formspree.io/f/xojpeqan" method="POST" className="reveal grid grid-cols-1 gap-8">
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.24em] text-neutral-500">Type / ご依頼内容</label>
+                <select
+                  name="type"
+                  defaultValue=""
+                  className="mt-3 w-full border-b border-white/15 bg-transparent pb-3 text-[16px] text-neutral-100 outline-none transition-colors focus:border-white [&>option]:bg-neutral-900"
+                >
+                  <option value="" disabled>選択してください</option>
+                  <option value="ポートレート撮影">ポートレート撮影</option>
+                  <option value="飲食店・店舗撮影">飲食店・店舗撮影</option>
+                  <option value="Webサイト制作">Webサイト制作</option>
+                  <option value="撮影＋サイト制作セット">撮影＋サイト制作セット</option>
+                  <option value="その他・相談">その他・相談</option>
+                </select>
+              </div>
               {[
                 { label: "Name", name: "name", type: "text", ph: "お名前" },
                 { label: "Email", name: "email", type: "email", ph: "メールアドレス" },
