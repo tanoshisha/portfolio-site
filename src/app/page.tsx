@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import photos from "@/data/photos.json";
 
 // 写真の一覧は src/data/photos.json で管理。
@@ -94,7 +95,7 @@ function Marquee({
   reverse?: boolean;
   duration?: number;
   height?: string;
-  onSelect?: (src: string) => void;
+  onSelect?: (src: string, el: HTMLElement) => void;
 }) {
   const loop = [...items, ...items];
   return (
@@ -109,7 +110,8 @@ function Marquee({
             type="button"
             tabIndex={i < items.length ? 0 : -1}
             aria-hidden={i >= items.length}
-            onClick={() => onSelect?.(p.src)}
+            data-src={p.src}
+            onClick={(e) => onSelect?.(p.src, e.currentTarget)}
             className={`relative shrink-0 overflow-hidden bg-neutral-900 ${height}`}
           >
             <img
@@ -205,6 +207,7 @@ function Lightbox({
           sizes="100vw"
           alt={p.title ?? ""}
           onClick={(e) => e.stopPropagation()}
+          style={{ viewTransitionName: "pf-photo" }}
           className="lb-img max-h-full max-w-full object-contain"
         />
         <button
@@ -248,12 +251,15 @@ function Lightbox({
 // セクション見出し：番号＋大きな英字＋小さな和文。
 function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: string; children?: React.ReactNode }) {
   return (
-    <div data-reveal className="reveal flex flex-wrap items-end justify-between gap-6 border-t border-white/10 pt-8 md:pt-10">
+    <div data-reveal className="reveal relative flex flex-wrap items-end justify-between gap-6 pt-8 md:pt-10">
+      <span className="sec-rule" aria-hidden="true" />
       <div>
-        <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">
-          {no} — {ja}
+        <p className="flex items-center gap-3 text-[11px] tracking-[0.3em] text-neutral-500">
+          <span className="font-[family-name:var(--font-geist-mono)] text-neutral-400">{no}</span>
+          <span className="h-px w-6 bg-white/20" aria-hidden="true" />
+          <span className="jp tracking-[0.2em]">{ja}</span>
         </p>
-        <h2 className="display mt-4 text-[30px] leading-[1.05] md:text-[60px]">
+        <h2 className="display mt-5 text-[42px] leading-[1] md:text-[68px]">
           <SplitChars text={en} />
         </h2>
       </div>
@@ -318,6 +324,9 @@ function Hero() {
         ))}
       </div>
       <div data-hero-veil className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="grain" />
+      </div>
 
       <div data-hero-text className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
         <p className="hero-rise text-[10px] uppercase tracking-[0.4em] text-white/75 md:text-[12px]" style={{ animationDelay: "4.3s" }}>
@@ -326,7 +335,7 @@ function Hero() {
         <h1 className="hero-chars hero-name display mt-6 text-[13vw] leading-[1] md:text-[9vw] xl:text-[132px]">
           <SplitChars text="Hayato Naoe" />
         </h1>
-        <p className="hero-rise mt-6 text-[12px] tracking-[0.12em] text-white/80 md:text-[14px]" style={{ animationDelay: "5s" }}>
+        <p className="hero-rise jp mt-7 text-[14px] font-light tracking-[0.28em] text-white/85 md:text-[16px]" style={{ animationDelay: "5s" }}>
           人物とお店を、空気ごと。
         </p>
       </div>
@@ -343,7 +352,7 @@ function Hero() {
 }
 
 // 写真が流れる帯。スクロールの勢いで速く・斜めになる（動きは useMotion 側）。
-function PhotoBand({ onSelect }: { onSelect: (src: string) => void }) {
+function PhotoBand({ onSelect }: { onSelect: (src: string, el: HTMLElement) => void }) {
   const half = Math.ceil(works.length / 2);
   const rowA = works.slice(0, half);
   const rowB = [...works.slice(half), ...personal.slice(0, 4)];
@@ -373,7 +382,7 @@ function ZoomScene() {
 }
 
 // Works：カテゴリ絞り込み＋グリッド＋モーダル。
-function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
+function Works({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLElement) => void }) {
   const [cat, setCat] = useState("all");
   const list = cat === "all" ? works : works.filter((w) => catOf(w) === cat);
   const ref = useReveal<HTMLDivElement>();
@@ -382,7 +391,7 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
     <section id="works" className="scroll-mt-20 px-6 py-20 md:px-10 md:py-28">
       <div ref={ref} className="mx-auto max-w-[1400px]">
         <SectionHead no="01" en="Works" ja="撮影実績">
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="カテゴリ">
+          <div className="flex flex-wrap gap-1.5 md:gap-2" role="tablist" aria-label="カテゴリ">
             {CATEGORIES.map((c) => {
               const count = c.id === "all" ? works.length : works.filter((w) => catOf(w) === c.id).length;
               const active = cat === c.id;
@@ -393,7 +402,7 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setCat(c.id)}
-                  className={`rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.18em] transition-colors ${
+                  className={`whitespace-nowrap rounded-full border px-3.5 py-2 text-[10px] uppercase tracking-[0.16em] transition-colors md:px-4 md:text-[11px] md:tracking-[0.18em] ${
                     active
                       ? "border-white bg-white text-black"
                       : "border-white/15 text-neutral-400 hover:border-white/50 hover:text-white"
@@ -407,12 +416,13 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
           </div>
         </SectionHead>
 
-        <div key={cat} className="mt-12 grid grid-cols-2 gap-x-3 gap-y-8 md:mt-16 md:grid-cols-3 md:gap-x-6 md:gap-y-14">
+        <div key={cat} className="works-grid mt-12 grid grid-cols-2 gap-x-3 gap-y-10 md:mt-16 md:grid-cols-3 md:gap-x-6 md:gap-y-14">
           {list.map((p, i) => (
             <button
               key={p.src}
               type="button"
-              onClick={() => onOpen(list, i)}
+              data-src={p.src}
+              onClick={(e) => onOpen(list, i, e.currentTarget)}
               data-reveal
               className="reveal-clip group text-left"
               style={{ transitionDelay: `${(i % 3) * 90}ms` }}
@@ -430,9 +440,9 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
                   View ↗
                 </span>
               </div>
-              <div className="mt-3 flex items-baseline justify-between gap-3">
-                <p className="text-[14px] tracking-[0.01em] text-neutral-200 md:text-[16px]">{p.title}</p>
-                <p className="shrink-0 font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.2em] text-neutral-500">
+              <div className="mt-3 flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-3">
+                <p className="text-[14px] font-light tracking-[0.02em] text-neutral-100 md:text-[16px]">{p.title}</p>
+                <p className="shrink-0 font-[family-name:var(--font-geist-mono)] text-[9px] uppercase tracking-[0.24em] text-neutral-500 md:text-[10px]">
                   {catLabel(catOf(p))}
                 </p>
               </div>
@@ -445,13 +455,14 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
 }
 
 // Gallery：個人作品。流れる帯＋小さなタイル。
-function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
+function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLElement) => void }) {
   const ref = useReveal<HTMLDivElement>();
+  const [all, setAll] = useState(false);
   return (
     <section id="gallery" className="scroll-mt-20 py-20 md:py-28">
       <div ref={ref} className="mx-auto max-w-[1400px] px-6 md:px-10">
         <SectionHead no="02" en="Gallery" ja="個人作品">
-          <p className="max-w-[34ch] text-[13px] leading-7 text-neutral-500">
+          <p className="max-w-[34ch] text-[13px] leading-[2] tracking-[0.04em] text-neutral-400">
             仕事を離れて<wbr />撮りためている<wbr />個人的な写真です。<wbr />タップで拡大できます。
           </p>
         </SectionHead>
@@ -462,17 +473,18 @@ function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
           items={personal.slice(0, 16)}
           duration={90}
           height="h-[22vh] md:h-[30vh]"
-          onSelect={(src) => onOpen(personal, Math.max(0, personal.findIndex((p) => p.src === src)))}
+          onSelect={(src, el) => onOpen(personal, Math.max(0, personal.findIndex((p) => p.src === src)), el)}
         />
       </div>
 
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="mt-6 grid grid-cols-3 gap-1.5 sm:grid-cols-4 md:mt-8 md:gap-2 lg:grid-cols-6">
+        <div className={`tiles mt-6 grid grid-cols-3 gap-1.5 md:mt-8 md:grid-cols-6 md:gap-2 ${all ? "" : "is-collapsed"}`}>
           {personal.map((p, i) => (
             <button
               key={p.src}
               type="button"
-              onClick={() => onOpen(personal, i)}
+              data-src={p.src}
+              onClick={(e) => onOpen(personal, i, e.currentTarget)}
               className="group relative aspect-square overflow-hidden bg-neutral-900"
             >
               <img
@@ -486,6 +498,18 @@ function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number) => void }) {
             </button>
           ))}
         </div>
+        {!all && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setAll(true)}
+              className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-3 text-[11px] uppercase tracking-[0.24em] text-neutral-200 transition-colors hover:bg-white hover:text-black"
+            >
+              View all
+              <span className="font-[family-name:var(--font-geist-mono)] text-[10px] text-neutral-500 group-hover:text-black/60">{personal.length}</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -678,13 +702,48 @@ export default function Home() {
   const restRef = useReveal<HTMLDivElement>();
   useMotion(!!lb || menuOpen);
 
-  const openWorks = (list: Photo[], i: number) => setLb({ list, index: i, meta: true });
-  const openPersonal = (list: Photo[], i: number) => setLb({ list, index: i, meta: false });
-  const openFromHero = (src: string) => {
+  // 写真を開く/閉じるとき、タップした写真がその位置から拡大・元の位置へ戻る（View Transitions 対応ブラウザのみ）
+  const morph = (el: HTMLElement | null | undefined, update: () => void) => {
+    const d = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+    const pic = el?.querySelector("img") ?? null;
+    if (!d.startViewTransition || !pic || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      update();
+      return;
+    }
+    pic.style.viewTransitionName = "pf-photo";
+    const t = d.startViewTransition(() => {
+      pic.style.viewTransitionName = "";
+      flushSync(update);
+    });
+    t.finished.finally(() => { pic.style.viewTransitionName = ""; });
+  };
+  const openWorks = (list: Photo[], i: number, el?: HTMLElement) => morph(el, () => setLb({ list, index: i, meta: true }));
+  const openPersonal = (list: Photo[], i: number, el?: HTMLElement) => morph(el, () => setLb({ list, index: i, meta: false }));
+  const openFromHero = (src: string, el?: HTMLElement) => {
     const wi = works.findIndex((w) => w.src === src);
-    if (wi >= 0) return openWorks(works, wi);
+    if (wi >= 0) return openWorks(works, wi, el);
     const pi = personal.findIndex((p) => p.src === src);
-    if (pi >= 0) openPersonal(personal, pi);
+    if (pi >= 0) openPersonal(personal, pi, el);
+  };
+  // 閉じるとき：いま表示中の写真が画面内にあれば、そこへ縮んで戻る
+  const closeLb = () => {
+    const src = lb?.list[lb.index]?.src;
+    const cands = src ? Array.from(document.querySelectorAll<HTMLElement>(`[data-src="${CSS.escape(src)}"]`)) : [];
+    const back = cands.find((c) => {
+      const r = c.getBoundingClientRect();
+      return r.width > 0 && r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth;
+    });
+    const d = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+    const pic = back?.querySelector("img");
+    if (!d.startViewTransition || !pic || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLb(null);
+      return;
+    }
+    const t = d.startViewTransition(() => {
+      flushSync(() => setLb(null));
+      pic.style.viewTransitionName = "pf-photo";
+    });
+    t.finished.finally(() => { pic.style.viewTransitionName = ""; });
   };
 
   // スクロールに合わせた背景色の変化（About以降：青→青緑→緑）。
@@ -740,6 +799,7 @@ export default function Home() {
   return (
     <main className="min-h-screen overflow-x-clip text-neutral-100">
       <OpeningAnimation />
+      <div className="scroll-progress" aria-hidden="true" />
 
       <header
         className={`fixed inset-x-0 top-0 z-50 px-5 py-4 transition-colors duration-500 md:px-10 md:py-5 ${
@@ -767,19 +827,31 @@ export default function Home() {
             </button>
           </div>
         </div>
-        {menuOpen && (
-          <div className="mx-auto mt-6 max-w-[1400px] border-t border-white/10 pb-4 pt-6 md:hidden">
-            <nav className="flex flex-col gap-5">
-              {NAV.map((n, i) => (
-                <a key={n.href} href={n.href} onClick={() => setMenuOpen(false)} className="display flex items-baseline gap-3 text-[34px] leading-none">
-                  <span className="font-[family-name:var(--font-geist-mono)] text-[10px] text-neutral-500">0{i + 1}</span>
-                  {n.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
       </header>
+
+      {/* スマホの全画面メニュー：項目が順にせり上がる */}
+      {menuOpen && (
+        <div className="menu-panel fixed inset-0 z-40 flex flex-col justify-between bg-[#0e0e0e]/95 px-6 pb-10 pt-28 backdrop-blur-xl md:hidden">
+          <nav className="flex flex-col gap-4">
+            {NAV.map((n, i) => (
+              <a key={n.href} href={n.href} onClick={() => setMenuOpen(false)} className="menu-item display text-[46px] leading-[1.1]">
+                <span style={{ "--i": i } as React.CSSProperties}>
+                  <small className="font-[family-name:var(--font-geist-mono)] text-[10px] tracking-[0.2em] text-neutral-500">0{i + 1}</small>
+                  {n.label}
+                </span>
+              </a>
+            ))}
+          </nav>
+          <div className="menu-item flex items-end justify-between border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
+            <span style={{ "--i": NAV.length } as React.CSSProperties} className="flex w-full items-end justify-between">
+              <span className="jp normal-case tracking-[0.12em]">東京のフォトグラファー</span>
+              <a href="https://www.instagram.com/hayato_naoe/" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-neutral-200">
+                <InstagramIcon /> Instagram
+              </a>
+            </span>
+          </div>
+        </div>
+      )}
 
       <Hero />
       <PhotoBand onSelect={openFromHero} />
@@ -788,14 +860,17 @@ export default function Home() {
       <section className="px-6 py-24 md:px-10 md:py-40">
         <div ref={restRef} className="mx-auto max-w-[1400px]">
           <div data-reveal className="reveal grid gap-8 md:grid-cols-[0.35fr_1fr]">
-            <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">— Intro</p>
-            <p
-              style={{ fontFamily: '"Zen Maru Gothic", sans-serif' }}
-              className="text-[19px] font-light leading-[2.1] tracking-[0.02em] text-neutral-200 md:text-[30px]"
-            >
-              きれいに撮るだけなら、<wbr />今はスマホでもできます。<br />
-              大事にしているのは、<wbr />あとで見返したときに<br />
-              「あの時の空気」まで<wbr />思い出せる一枚かどうか。
+            <p className="flex items-center gap-3 font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">
+              <span className="h-px w-6 bg-white/25" aria-hidden="true" />
+              Intro
+            </p>
+            {/* スクロールに合わせて1行ずつ白く浮かび上がる（.intro-line） */}
+            <p className="jp text-[21px] font-light leading-[2.05] tracking-[0.06em] md:text-[32px] md:leading-[2]">
+              <span className="intro-line">きれいに撮るだけなら、<wbr />今はスマホでもできます。</span>
+              <br />
+              <span className="intro-line">大事にしているのは、<wbr />あとで見返したときに</span>
+              <br />
+              <span className="intro-line">「あの時の空気」まで<wbr />思い出せる一枚かどうか。</span>
             </p>
           </div>
         </div>
@@ -827,7 +902,7 @@ export default function Home() {
           items={lb.list}
           index={lb.index}
           showMeta={lb.meta}
-          onClose={() => setLb(null)}
+          onClose={closeLb}
           onIndex={(i) => setLb((s) => (s ? { ...s, index: i } : s))}
         />
       )}
@@ -852,10 +927,13 @@ function AboutPricingContact() {
               </p>
             </div>
             <div data-reveal className="reveal">
-              <p className="max-w-[22ch] text-[24px] font-normal leading-[1.7] tracking-[-0.01em] text-neutral-100 md:text-[38px]">
-                打ち合わせから<wbr />一緒に考えて、<wbr />その人・そのお店に<wbr />合った一枚を撮ります。
+              {/* 意味の切れ目で3行に（スマホでも行の長さがそろうように） */}
+              <p className="text-[21px] font-light leading-[1.8] tracking-[0.04em] text-neutral-100 md:text-[36px]">
+                <span className="block">打ち合わせから<wbr />一緒に考えて、</span>
+                <span className="block">その人・そのお店に</span>
+                <span className="block">合った一枚を撮ります。</span>
               </p>
-              <div className="mt-10 max-w-[62ch] space-y-5 text-sm leading-8 text-neutral-400 md:text-[15px]">
+              <div className="mt-10 max-w-[62ch] space-y-6 text-[14px] leading-[2.05] tracking-[0.04em] text-neutral-400 md:text-[15px]">
                 <p>
                   写真家の<span className="text-neutral-200">直江勇人</span>（なおえ はやと／Hayato Naoe）です。
                 </p>
@@ -887,10 +965,10 @@ function AboutPricingContact() {
           <SectionHead no="04" en="Pricing" ja="料金" />
           <div className="mt-12 grid grid-cols-1 border-t border-white/10 md:mt-16 md:grid-cols-2 md:border-t-0 lg:grid-cols-4">
             {[
-              { no: "A", t: "ポートレート撮影", p: "¥30,000〜", d: <>SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />夜景ロケの<wbr />ムード撮影も得意です。</> },
-              { no: "B", t: "飲食店撮影", p: "¥50,000〜", d: <>内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。</> },
-              { no: "D", t: "Webサイト制作", p: "¥50,000〜", sub: "撮影セット ¥120,000〜", d: <>プロフィールサイトや<wbr />お店の紹介ページを<wbr />1ページで。<br />撮影とセットなら、<wbr />写真もサイトも<wbr />まとめてお任せいただけます。</> },
-              { no: "E", t: "その他", p: "応相談", d: <>イベントや出張撮影など。<br />「こんなの撮れますか？」からどうぞ。</> },
+              { no: "A", t: "ポートレート撮影", p: "¥30,000", d: <>SNSや<wbr />マッチングアプリの<wbr />プロフィールから、<wbr />作品撮りまで。<br />夜景ロケの<wbr />ムード撮影も得意です。</> },
+              { no: "B", t: "飲食店撮影", p: "¥50,000", d: <>内装やメニュー・ドリンクを、<wbr />食べログやInstagramで<wbr />映える一枚に。</> },
+              { no: "C", t: "Webサイト制作", p: "¥50,000", sub: "撮影セット ¥120,000〜", d: <>プロフィールサイトや<wbr />お店の紹介ページを<wbr />1ページで。<br />撮影とセットなら、<wbr />写真もサイトも<wbr />まとめてお任せいただけます。</> },
+              { no: "D", t: "その他", p: "", d: <>イベントや出張撮影など。<br />「こんなの撮れますか？」<wbr />からどうぞ。</> },
             ].map((x, i) => (
               <div
                 key={x.no}
@@ -903,20 +981,31 @@ function AboutPricingContact() {
                 style={{ transitionDelay: `${i * 90}ms` }}
               >
                 <p className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.3em] text-neutral-500">{x.no}</p>
-                <p className="mt-4 text-[16px] tracking-[-0.01em] text-neutral-200">{x.t}</p>
-                <p className="display mt-3 text-[40px] leading-none md:text-[48px]">{x.p}</p>
-                {x.sub && (
-                  <p className="mt-3 text-[12px] tracking-[0.02em] text-neutral-400">{x.sub}</p>
+                <p className="mt-4 text-[15px] tracking-[0.06em] text-neutral-200">{x.t}</p>
+                {x.p ? (
+                  <p className="mt-3 flex items-baseline gap-1.5 leading-none">
+                    <span className="display text-[44px] tabular-nums tracking-[0.04em] md:text-[48px]">{x.p}</span>
+                    <span className="text-[13px] tracking-[0.1em] text-neutral-400">〜</span>
+                  </p>
+                ) : (
+                  <p className="mt-4 text-[26px] font-light leading-none tracking-[0.16em] text-neutral-100 md:mt-5">応相談</p>
                 )}
-                <p className="mt-5 max-w-[26ch] text-[13px] leading-7 text-neutral-500">{x.d}</p>
+                {x.sub && (
+                  <p className="mt-3 text-[12px] tracking-[0.06em] text-neutral-400">{x.sub}</p>
+                )}
+                <p className="mt-5 max-w-[26ch] text-[13px] leading-[2] tracking-[0.04em] text-neutral-500">{x.d}</p>
               </div>
             ))}
           </div>
 
-          <div data-reveal className="reveal mt-10 space-y-1.5 text-[12px] leading-6 text-neutral-500">
-            <p>・ブログ・お知らせ更新機能（ご自身で更新できる管理画面）… +¥30,000〜</p>
-            <p>・更新代行プラン … 月¥5,000〜</p>
-            <p>・ドメイン・サーバー費用は実費となります</p>
+          {/* Webサイト制作のオプション（スマホではみ出さないよう文節ごとに折り返す） */}
+          <div data-reveal className="reveal mt-10 border-l border-white/10 pl-4 text-[12px] leading-[1.9] tracking-[0.04em] text-neutral-500">
+            <p className="mb-2 font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.24em] text-neutral-400">Web options</p>
+            <ul className="space-y-1.5">
+              <li>ブログ・お知らせ更新機能<wbr />（ご自身で更新できる<wbr />管理画面）<wbr /><span className="text-neutral-300">＋¥30,000〜</span></li>
+              <li>更新代行プラン <wbr /><span className="text-neutral-300">月¥5,000〜</span></li>
+              <li>ドメイン・サーバー費用は<wbr />実費となります</li>
+            </ul>
           </div>
 
           <p className="mt-10 max-w-[32ch] text-[13px] leading-7 text-neutral-500">
@@ -931,12 +1020,12 @@ function AboutPricingContact() {
           <SectionHead no="05" en="Contact" ja="お問い合わせ" />
           <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-[1fr_1fr] md:gap-20">
             <div data-reveal className="reveal">
-              <p className="display text-[28px] leading-[1.15] md:text-[52px]">
+              <p className="display text-[38px] leading-[1.1] md:text-[56px]">
                 Let&rsquo;s make
                 <br />
                 <span className="text-neutral-400">something.</span>
               </p>
-              <p className="mt-8 max-w-[30ch] text-[16px] leading-[1.9] text-neutral-300 md:text-[19px]">
+              <p className="mt-8 max-w-[30ch] text-[15px] font-light leading-[2] tracking-[0.04em] text-neutral-300 md:text-[18px]">
                 「こういうの撮れますか？」<wbr />だけでも大歓迎です。<br />
                 フォームからお気軽にどうぞ。
               </p>

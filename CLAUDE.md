@@ -20,7 +20,9 @@ GitHub `tanoshisha/portfolio-site` の **main に push すると Vercel が自�
 - 見出し・名前はヘッダー左上「HAYATO NAOE」と同じ **細めの大文字ゴシック（Geist）＋広い字間**。セリフ体・イタリックは使わない。
 - トップは `heroSlides` の全画面スライドショー。オープニングは手書きサイン（`public/images/gallery/signature.png`）＋朱色のカメラ印。
 - キャッチコピーは「人物とお店を、空気ごと。」。
-- 動きは GSAP + Lenis（`useMotion`）。
+- 日本語は **Zen Kaku Gothic New**（layout.tsx の next/font、変数 --font-jp、クラス .jp）。英字は Geist。丸ゴシック（Zen Maru）は使わない。
+- 動きは GSAP + Lenis（`useMotion`）。2026-10 v3 で追加：上端のスクロール進捗線、見出し罫線が伸びる、Intro が1行ずつ白く浮かぶ（CSS animation-timeline）、写真をタップ位置から拡大（View Transitions・morph/closeLb）、スマホは全画面メニュー・Works互い違い・Gallery は最初12枚（PC18枚）＋View all。
+- スマホ（390px幅）で確認してから公開。dev サーバーの確認は 127.0.0.1 ではなく **localhost** で開く（127.0.0.1 だと JS が配られず動かない）。
 
 ## スマホ（クラウド）の Claude Code から頼まれたとき
 - サイトは **main に入って初めて公開**される。作業ブランチに push しただけでは本番は変わらない。

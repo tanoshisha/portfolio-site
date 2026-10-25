@@ -10,7 +10,9 @@ body {
   margin: 0;
   background: #0e0e0e;
   color: #e7e5e4;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* 英字は Geist、日本語は Zen Kaku Gothic New */
+  font-family: var(--font-geist-sans), var(--font-jp), system-ui, -apple-system, "Hiragino Sans", sans-serif;
+  font-feature-settings: "palt" 1;
   /* 日本語が単語の途中で改行されないように。
      折り返しは句読点や <wbr /> を置いた文節の切れ目だけで起きる。
      break-word は、どうしても収まらない時だけの最終手段。 */
@@ -261,4 +263,71 @@ html:not(.js-motion) .zoom-text span { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .open-overlay { animation-duration: 1.2s; }
   .sign-ink, .open-seal { animation: none; -webkit-mask-image: none; mask-image: none; }
+}
+
+/* =====================================================================
+   リニューアル v3（2026-10）：文字の整理・スマホの見え方・最新の動き
+   ===================================================================== */
+/* 文字の選択色は落款の朱色に */
+::selection { background: #c8432f; color: #fff; }
+p, li { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+.jp { font-family: var(--font-jp), system-ui, sans-serif; }
+
+/* ページ上端の細い線：スクロールした分だけ伸びる */
+.scroll-progress { position: fixed; left: 0; right: 0; top: 0; z-index: 60; height: 1px; background: rgba(255,255,255,.7); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { animation: progressGrow linear both; animation-timeline: scroll(root); }
+  @keyframes progressGrow { to { transform: scaleX(1); } }
+}
+
+/* フィルムの粒子（トップ写真の上にうっすら） */
+.grain { position: absolute; inset: -50%; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainShift 1s steps(5) infinite; will-change: transform; }
+@keyframes grainShift { 0% { transform: translate(0,0) } 20% { transform: translate(-4%,3%) } 40% { transform: translate(3%,-2%) } 60% { transform: translate(-2%,-4%) } 80% { transform: translate(4%,2%) } 100% { transform: translate(0,0) } }
+
+/* 見出しの罫線：画面に入ると左から伸びる */
+.sec-rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(255,255,255,.14); transform-origin: 0 50%; transform: scaleX(0); transition: transform 1.4s cubic-bezier(.16,1,.3,1); }
+.is-in > .sec-rule, .is-in .sec-rule { transform: scaleX(1); }
+
+/* Intro：スクロールに合わせて1行ずつ白く浮かび上がる（非対応ブラウザは最初から白） */
+.intro-line { display: inline; color: #e7e5e4; }
+@supports (animation-timeline: view()) {
+  .intro-line { color: #3f3f46; animation: introLit linear both; animation-timeline: view(); }
+  .intro-line:nth-of-type(1) { animation-range: entry 60% cover 38%; }
+  .intro-line:nth-of-type(2) { animation-range: entry 90% cover 46%; }
+  .intro-line:nth-of-type(3) { animation-range: cover 30% cover 54%; }
+  @keyframes introLit { to { color: #f5f5f4; } }
+}
+
+/* Works（スマホ）：左右の列を互い違いに並べて、雑誌のような見え方に */
+@media (max-width: 767px) {
+  .works-grid { padding-bottom: 56px; }
+  .works-grid > :nth-child(even) { translate: 0 56px; }
+}
+
+/* Gallery：最初は数行だけ（スマホ12枚・PC18枚）。「すべて見る」で全部 */
+@media (max-width: 767px) { .tiles.is-collapsed > :nth-child(n+13) { display: none; } }
+@media (min-width: 768px) { .tiles.is-collapsed > :nth-child(n+19) { display: none; } }
+
+/* スマホの全画面メニュー：項目が順にせり上がる */
+.menu-panel { animation: menuIn .5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes menuIn { from { opacity: 0; } to { opacity: 1; } }
+.menu-panel .menu-item { display: block; overflow: hidden; }
+.menu-panel .menu-item > span { display: inline-flex; align-items: baseline; gap: 14px; animation: menuRise .9s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--i) * 60ms + .08s); }
+@keyframes menuRise { from { transform: translateY(105%); } to { transform: none; } }
+
+/* 写真を開くとき、タップした写真がその位置から拡大（View Transitions 対応ブラウザ） */
+::view-transition-group(pf-photo) { animation-duration: .55s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+::view-transition-old(pf-photo), ::view-transition-new(pf-photo) { animation: none; mix-blend-mode: normal; height: 100%; object-fit: cover; overflow: clip; }
+::view-transition-old(root) { animation: vtFadeOut .35s ease both; }
+::view-transition-new(root) { animation: vtFadeIn .35s ease both; }
+@keyframes vtFadeOut { to { opacity: 0; } }
+@keyframes vtFadeIn { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .grain, .menu-panel, .menu-panel .menu-item > span { animation: none; }
+  .sec-rule { transform: none; transition: none; }
+  .intro-line { animation: none; color: #e7e5e4; }
 }
