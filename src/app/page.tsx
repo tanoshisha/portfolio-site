@@ -250,7 +250,7 @@ function Lightbox({
 }
 
 // セクション見出し：番号＋大きな英字＋小さな和文。
-function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: string; children?: React.ReactNode }) {
+function SectionHead({ no, en, ja, count, children }: { no: string; en: string; ja: string; count?: number; children?: React.ReactNode }) {
   return (
     <div data-reveal className="reveal relative flex flex-wrap items-end justify-between gap-6 pt-8 md:pt-10">
       <span className="sec-rule" aria-hidden="true" />
@@ -260,8 +260,13 @@ function SectionHead({ no, en, ja, children }: { no: string; en: string; ja: str
           <span className="h-px w-6 bg-white/20" aria-hidden="true" />
           <span className="jp tracking-[0.2em]">{ja}</span>
         </p>
-        <h2 className="display mt-5 text-[42px] leading-[1] md:text-[68px]">
+        <h2 className="display mt-5 flex items-start gap-3 text-[42px] leading-[1] md:text-[72px] lg:text-[108px] lg:tracking-[0.08em]">
           <SplitChars text={en} />
+          {count != null && (
+            <sup className="mt-1 font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.1em] text-neutral-500 md:mt-3 md:text-[13px]">
+              ({String(count).padStart(2, "0")})
+            </sup>
+          )}
         </h2>
       </div>
       {children}
@@ -365,6 +370,24 @@ function PhotoBand({ onSelect }: { onSelect: (src: string, el: HTMLElement) => v
   );
 }
 
+// 大きな英字が流れる帯（白抜きと塗りを交互に）。スクロールの勢いで速くなる（useMotion が .marquee-track を動かす）
+const BAND_WORDS = ["Portrait", "Shop & Bar", "Tokyo", "Night", "Snap", "Mood"];
+function WordBand() {
+  const row = [...BAND_WORDS, ...BAND_WORDS];
+  return (
+    <div className="marquee word-band overflow-hidden border-y border-white/10 py-8 md:py-14" aria-hidden="true">
+      <div className="marquee-track flex w-max items-center" style={{ animationDuration: "45s" }}>
+        {[...row, ...row].map((w, i) => (
+          <span key={i} className="flex items-center whitespace-nowrap">
+            <span className={`display text-[54px] leading-none md:text-[120px] ${i % 2 ? "word-fill" : "word-outline"}`}>{w}</span>
+            <span className="mx-6 inline-block h-2 w-2 rounded-full bg-[#c8432f] md:mx-12 md:h-3 md:w-3" />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // スクロールで小さな写真が全画面まで広がるシーン。
 function ZoomScene() {
   return (
@@ -391,7 +414,7 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLElement
   return (
     <section id="works" className="scroll-mt-20 px-6 py-20 md:px-10 md:py-28">
       <div ref={ref} className="mx-auto max-w-[1400px]">
-        <SectionHead no="01" en="Works" ja="撮影実績">
+        <SectionHead no="01" en="Works" ja="撮影実績" count={works.length}>
           <div className="flex flex-wrap gap-1.5 md:gap-2" role="tablist" aria-label="カテゴリ">
             {CATEGORIES.map((c) => {
               const count = c.id === "all" ? works.length : works.filter((w) => catOf(w) === c.id).length;
@@ -462,7 +485,7 @@ function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLEleme
   return (
     <section id="gallery" className="scroll-mt-20 py-20 md:py-28">
       <div ref={ref} className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionHead no="02" en="Gallery" ja="個人作品">
+        <SectionHead no="02" en="Gallery" ja="個人作品" count={personal.length}>
           <p className="max-w-[34ch] text-[13px] leading-[2] tracking-[0.04em] text-neutral-400">
             仕事を離れて<wbr />撮りためている<wbr />個人的な写真です。<wbr />タップで拡大できます。
           </p>
@@ -823,6 +846,13 @@ export default function Home() {
             <a href="https://www.instagram.com/hayato_naoe/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:opacity-60">
               <InstagramIcon />
             </a>
+            {/* パソコン：右上の依頼ボタン */}
+            <a
+              href="#contact"
+              className="hidden items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-[10px] tracking-[0.22em] text-white transition-colors hover:bg-white hover:text-black md:inline-flex"
+            >
+              Request <span aria-hidden="true">↗</span>
+            </a>
             <button type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="メニュー" aria-expanded={menuOpen} className="hover:opacity-60 md:hidden">
               <MenuIcon open={menuOpen} />
             </button>
@@ -866,7 +896,7 @@ export default function Home() {
               Intro
             </p>
             {/* スクロールに合わせて1行ずつ白く浮かび上がる（.intro-line） */}
-            <p className="jp text-[21px] font-light leading-[2.05] tracking-[0.06em] md:text-[32px] md:leading-[2]">
+            <p className="jp text-[21px] font-light leading-[2.05] tracking-[0.06em] md:text-[32px] md:leading-[2] lg:text-[40px]">
               <span className="intro-line">きれいに撮るだけなら、<wbr />今はスマホでもできます。</span>
               <br />
               <span className="intro-line">大事にしているのは、<wbr />あとで見返したときに</span>
@@ -881,11 +911,16 @@ export default function Home() {
 
       <Works onOpen={openWorks} />
       <Gallery onOpen={openPersonal} />
+      <WordBand />
 
       <AboutPricingContact />
 
-      <footer className="px-6 py-8 md:px-10">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
+      <footer className="overflow-hidden px-6 pb-8 pt-10 md:px-10">
+        {/* 大きなロゴ（スクロールで下からせり上がる） */}
+        <p className="footer-mark display flex select-none justify-center text-[14vw] leading-[0.85] text-white/[0.07]" aria-hidden="true">
+          <span className="footer-mark-in">Hayato Naoe</span>
+        </p>
+        <div className="mx-auto mt-8 flex max-w-[1400px] items-center justify-between border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
           <div>© 2026 Hayato Naoe</div>
           <div className="flex items-center gap-5">
             <a href="#" className="link-line">
@@ -974,7 +1009,7 @@ function AboutPricingContact() {
               <div
                 key={x.no}
                 data-reveal
-                className={`reveal border-b border-white/10 py-8 md:border-b-0 md:py-6 lg:py-4 ${
+                className={`reveal price-item border-b border-white/10 py-8 md:border-b-0 md:py-6 lg:py-4 ${
                   i % 2 === 0 ? "md:border-l-0 md:pl-0 md:pr-8" : "md:border-l md:px-8"
                 } ${i >= 2 ? "md:border-t md:pt-8" : ""} ${
                   i === 0 ? "lg:border-l-0 lg:pl-0 lg:pr-8" : "lg:border-l lg:px-8"
