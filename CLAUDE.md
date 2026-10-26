@@ -28,3 +28,8 @@ GitHub `tanoshisha/portfolio-site` の **main に push すると Vercel が自�
 - サイトは **main に入って初めて公開**される。作業ブランチに push しただけでは本番は変わらない。
 - 作業が終わったら、可能なら main へ直接 push する。できない場合は PR を作り、ユーザーに「GitHub で Merge を押すと公開されます」と伝える（PR のリンクも添える）。
 - 作業前に `git pull` で最新の main から始める（CMS からの更新が先に入っていることがある）。
+
+## SEO（画像検索）
+- 写真の alt は altOf()：「タイトル｜東京のポートレート撮影／飲食店・店舗撮影／街のスナップ写真（フォトグラファー Hayato Naoe）」。Gallery（personal）も title に写真の説明を入れる（画面には出ないが検索用）。新しく足すときも title を入れる。
+- layout.tsx の ImageGallery 構造化データ（creator・creditText・copyrightNotice・license=/license・acquireLicensePage=/#contact）。sitemap.ts は全写真を画像サイトマップに。
+- /license は写真の利用についてのページ（フォトウォークサイトの写真の license もここを指す）。

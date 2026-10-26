@@ -26,6 +26,11 @@ const CATEGORIES: { id: string; en: string; ja: string }[] = [
 ];
 const catOf = (p: Photo) => p.category ?? "portrait";
 const catLabel = (id: string) => CATEGORIES.find((c) => c.id === id)?.en ?? "";
+// 画像検索向けの写真の説明（タイトル＋撮影ジャンル＋撮影者）
+const altOf = (p: Photo) => {
+  const genre = personal.includes(p) ? "東京の街のスナップ写真" : catOf(p) === "shop" ? "東京の飲食店・店舗撮影" : "東京のポートレート撮影";
+  return `${p.title ? `${p.title}｜` : ""}${genre}（フォトグラファー Hayato Naoe）`;
+};
 
 // src は「/images/gallery/xxx.jpg」のようなパス（CMS・photo-publisher が書く形）か、拡張子なしのファイル名
 const baseOf = (src: string) => src.replace(/^.*\//, "").replace(/\.[a-z0-9]+$/i, "");
@@ -119,7 +124,7 @@ function Marquee({
               src={img(p.src)}
               srcSet={srcSet(p.src)}
               sizes="(min-width: 768px) 28vw, 45vw"
-              alt={i < items.length ? p.title ?? "" : ""}
+              alt={i < items.length ? altOf(p) : ""}
               loading="lazy"
               className="h-full w-auto object-cover transition-transform duration-700 hover:scale-[1.04]"
             />
@@ -206,7 +211,7 @@ function Lightbox({
           src={img(p.src)}
           srcSet={srcSet(p.src)}
           sizes="100vw"
-          alt={p.title ?? ""}
+          alt={altOf(p)}
           onClick={(e) => e.stopPropagation()}
           style={{ viewTransitionName: "pf-photo" }}
           className="lb-img max-h-full max-w-full object-contain"
@@ -456,7 +461,7 @@ function Works({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLElement
                   src={img(p.src)}
                   srcSet={srcSet(p.src)}
                   sizes="(min-width: 768px) 33vw, 50vw"
-                  alt={p.title ?? ""}
+                  alt={altOf(p)}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.05]"
                 />
@@ -515,7 +520,7 @@ function Gallery({ onOpen }: { onOpen: (list: Photo[], i: number, el?: HTMLEleme
                 src={img(p.src)}
                 srcSet={srcSet(p.src)}
                 sizes="(min-width: 1024px) 17vw, 33vw"
-                alt={p.title ?? ""}
+                alt={altOf(p)}
                 loading="lazy"
                 className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
               />

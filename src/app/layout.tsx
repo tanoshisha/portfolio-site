@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
+import photos from "@/data/photos.json";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +92,33 @@ const personJsonLd = {
   },
 };
 
+// 作品写真の一覧（撮影者・クレジット・ライセンス付き）。Google画像検索で撮影者名やライセンス表示が出るように
+const SITE = "https://hayatonaoe.com";
+const absImg = (src: string) => `${SITE}${src.includes("/") ? src : `/images/gallery/${src}.jpg`}`;
+const creator = { "@type": "Person", name: "Hayato Naoe（直江勇人）", url: `${SITE}/` };
+const imageObj = (p: { src: string; title?: string; category?: string }, genre: string) => ({
+  "@type": "ImageObject",
+  contentUrl: absImg(p.src),
+  name: p.title ? `${p.title}｜${genre}` : genre,
+  caption: p.title ? `${p.title}｜${genre}（フォトグラファー Hayato Naoe）` : `${genre}（フォトグラファー Hayato Naoe）`,
+  creator,
+  creditText: "Hayato Naoe",
+  copyrightNotice: "© Hayato Naoe",
+  license: `${SITE}/license`,
+  acquireLicensePage: `${SITE}/#contact`,
+});
+const galleryJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  name: "Hayato Naoe の作品（ポートレート・飲食店撮影・東京のスナップ）",
+  url: `${SITE}/`,
+  author: creator,
+  image: [
+    ...photos.works.map((p) => imageObj(p, p.category === "shop" ? "東京の飲食店・店舗撮影" : "東京のポートレート撮影")),
+    ...photos.personal.map((p) => imageObj(p, "東京の街のスナップ写真")),
+  ],
+};
+
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -123,6 +151,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryJsonLd) }}
         />
         {children}
       </body>
