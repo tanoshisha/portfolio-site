@@ -83,6 +83,12 @@ const personJsonLd = {
     addressCountry: "JP",
   },
   knowsAbout: ["ポートレート撮影", "飲食店撮影", "店舗撮影", "スナップ写真"],
+  // 主宰している写真サークル（同じ人のサイト同士として検索エンジンに伝える）
+  memberOf: {
+    "@type": "Organization",
+    name: "東京フォトウォークサークル",
+    url: "https://tokyo-photowalk.com/",
+  },
 };
 
 const websiteJsonLd = {

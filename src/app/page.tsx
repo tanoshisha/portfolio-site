@@ -923,6 +923,9 @@ export default function Home() {
         <div className="mx-auto mt-8 flex max-w-[1400px] items-center justify-between border-t border-white/10 pt-6 text-[11px] uppercase tracking-[0.24em] text-neutral-400">
           <div>© 2026 Hayato Naoe</div>
           <div className="flex items-center gap-5">
+            <a href="https://tokyo-photowalk.com/" target="_blank" rel="noopener" className="link-line hidden sm:inline">
+              Photo walk ↗
+            </a>
             <a href="#" className="link-line">
               Back to top ↑
             </a>
@@ -990,6 +993,23 @@ function AboutPricingContact() {
               </div>
               <a href="https://www.instagram.com/hayato_naoe/" target="_blank" rel="noreferrer" className="link-line mt-10 inline-block text-[11px] uppercase tracking-[0.24em] text-neutral-300">
                 Visit Instagram ↗
+              </a>
+
+              {/* 主宰している写真サークル（東京フォトウォークサークル）へのリンク */}
+              <a
+                href="https://tokyo-photowalk.com/"
+                target="_blank"
+                rel="noopener"
+                className="group mt-10 flex items-center justify-between gap-6 border border-white/12 px-5 py-5 transition-colors hover:border-white/40 hover:bg-white/[0.03] md:max-w-[520px] md:px-6"
+              >
+                <span>
+                  <span className="block font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.24em] text-neutral-500">Photo walk circle</span>
+                  <span className="mt-2 block text-[16px] tracking-[0.04em] text-neutral-100">東京フォトウォークサークル</span>
+                  <span className="mt-1 block text-[12px] leading-[1.8] tracking-[0.04em] text-neutral-400">
+                    東京の街をみんなで歩いて撮る<wbr />写真サークルを主宰しています。<wbr />初心者・スマホの方も歓迎です。
+                  </span>
+                </span>
+                <span className="text-[18px] text-neutral-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
