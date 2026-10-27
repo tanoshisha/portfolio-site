@@ -318,7 +318,8 @@ function Hero() {
   const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
   useEffect(() => {
     const next = (active + 1) % heroSlides.length;
-    const t = setTimeout(() => setLoaded((s) => (s.has(active) && s.has(next) ? s : new Set([...s, active, next]))), active === 0 ? 2500 : 0);
+    // 1枚目表示中は少し待ってから2枚目を読み込む（初回のLCPを優先）。切り替わりに間に合うよう早めに
+    const t = setTimeout(() => setLoaded((s) => (s.has(active) && s.has(next) ? s : new Set([...s, active, next]))), active === 0 ? 1200 : 0);
     return () => clearTimeout(t);
   }, [active]);
 
@@ -334,6 +335,7 @@ function Hero() {
             fetchPriority={idx === 0 ? "high" : "low"}
             decoding="async"
             alt=""
+            onLoad={(e) => { e.currentTarget.decode?.().catch(() => {}); }}
             style={{ objectPosition: slide.position ?? "center" }}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
               idx === active ? "opacity-100" : "opacity-0"
