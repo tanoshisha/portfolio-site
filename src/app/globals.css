@@ -80,6 +80,8 @@ body {
 }
 .hero-zoom {
   animation: slowZoom 7s ease-out both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 
