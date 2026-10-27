@@ -69,18 +69,10 @@ body {
   animation: signDraw 2.9s cubic-bezier(0.5, 0, 0.3, 1) forwards;
 }
 
-/* ヒーロー写真のゆっくりズーム（スライドに動きを足す） */
-@keyframes slowZoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
-}
-.hero-zoom {
-  animation: slowZoom 7s ease-out both;
-  will-change: transform, opacity;
+/* ヒーロー写真：フォトウォークサークルと同じく、拡大アニメは重ねず
+   わずかな固定スケール＋不透明度のクロスフェードだけ（端末を問わず滑らか） */
+.hero-slide {
+  transform: scale(1.04);
   backface-visibility: hidden;
 }
 

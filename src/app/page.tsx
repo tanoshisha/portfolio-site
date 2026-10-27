@@ -305,15 +305,13 @@ function SplitChars({ text, className = "" }: { text: string; className?: string
 function Hero() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setActive((p) => (p + 1) % heroSlides.length), 5000);
+    // タブが裏のときは切り替えない（戻ったときのまとめ再生でカクつかないように）
+    const t = setInterval(() => {
+      if (document.hidden) return;
+      setActive((p) => (p + 1) % heroSlides.length);
+    }, 6000);
     return () => clearInterval(t);
   }, []);
-  // 直前に表示していた1枚。フェードアウト中も拡大(hero-zoom)を保持して、scaleが急に戻る「かくつき」を防ぐ
-  const prevRef = useRef(active);
-  const prev = prevRef.current;
-  useEffect(() => {
-    prevRef.current = active;
-  }, [active]);
   // 表示中と次の1枚だけ読み込む（最初に全部を同時に落とさない）
   const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
   useEffect(() => {
@@ -337,9 +335,9 @@ function Hero() {
             alt=""
             onLoad={(e) => { e.currentTarget.decode?.().catch(() => {}); }}
             style={{ objectPosition: slide.position ?? "center" }}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+            className={`hero-slide absolute inset-0 h-full w-full object-cover transition-opacity duration-[1600ms] ease-in-out ${
               idx === active ? "opacity-100" : "opacity-0"
-            } ${idx === active || idx === prev ? "hero-zoom" : ""}`}
+            }`}
           />
         ))}
       </div>
