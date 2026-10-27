@@ -21,65 +21,17 @@
     },
     {
       "src": "/images/gallery/2A4A1862.jpg"
-    },
-    {
-      "src": "/images/gallery/2A4A1806.jpg"
     }
   ],
   "works": [
-    {
-      "src": "/images/gallery/2A4A1862.jpg",
-      "title": "Party Pole",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1806.jpg",
-      "title": "Night Glow",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1755.jpg",
-      "title": "Crimson",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1768.jpg",
-      "title": "Melon Soda",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1787.jpg",
-      "title": "Amber",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1884.jpg",
-      "title": "Scramble",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1681.jpg",
-      "title": "Blue Sky",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/2A4A1701.jpg",
-      "title": "Railing",
-      "category": "portrait"
-    },
     {
       "src": "/images/gallery/2A4A6891.jpg",
       "title": "Drop",
       "category": "portrait"
     },
     {
-      "src": "/images/gallery/2A4A6863.jpg",
-      "title": "Selector",
-      "category": "portrait"
-    },
-    {
-      "src": "/images/gallery/yokocho.jpg",
-      "title": "Yokocho",
+      "src": "/images/gallery/2A4A1862.jpg",
+      "title": "Party Pole",
       "category": "portrait"
     },
     {
@@ -88,13 +40,13 @@
       "category": "shop"
     },
     {
-      "src": "/images/gallery/downtown.jpg",
-      "title": "Downtown",
+      "src": "/images/gallery/yokocho.jpg",
+      "title": "Yokocho",
       "category": "portrait"
     },
     {
-      "src": "/images/gallery/IMG_9589-Enhanced-SR-Edit.jpg",
-      "title": "Neon Portrait",
+      "src": "/images/gallery/2A4A1806.jpg",
+      "title": "Night Glow",
       "category": "portrait"
     },
     {
@@ -103,18 +55,23 @@
       "category": "portrait"
     },
     {
+      "src": "/images/gallery/2A4A1755.jpg",
+      "title": "Crimson",
+      "category": "portrait"
+    },
+    {
       "src": "/images/gallery/work-1.jpg",
       "title": "City Light",
       "category": "portrait"
     },
     {
-      "src": "/images/gallery/backstreet.jpg",
-      "title": "Backstreet",
+      "src": "/images/gallery/downtown.jpg",
+      "title": "Downtown",
       "category": "portrait"
     },
     {
-      "src": "/images/gallery/shutter.jpg",
-      "title": "Shutter",
+      "src": "/images/gallery/2A4A1768.jpg",
+      "title": "Melon Soda",
       "category": "portrait"
     },
     {
@@ -123,13 +80,38 @@
       "category": "portrait"
     },
     {
+      "src": "/images/gallery/2A4A1787.jpg",
+      "title": "Amber",
+      "category": "portrait"
+    },
+    {
+      "src": "/images/gallery/2A4A6863.jpg",
+      "title": "Selector",
+      "category": "portrait"
+    },
+    {
+      "src": "/images/gallery/backstreet.jpg",
+      "title": "Backstreet",
+      "category": "portrait"
+    },
+    {
+      "src": "/images/gallery/2A4A1884.jpg",
+      "title": "Scramble",
+      "category": "portrait"
+    },
+    {
+      "src": "/images/gallery/work-3.jpg",
+      "title": "Western",
+      "category": "portrait"
+    },
+    {
       "src": "/images/gallery/IMG_7261.jpg",
       "title": "Lion Lager",
       "category": "shop"
     },
     {
-      "src": "/images/gallery/work-3.jpg",
-      "title": "Western",
+      "src": "/images/gallery/2A4A1681.jpg",
+      "title": "Blue Sky",
       "category": "portrait"
     },
     {
@@ -138,9 +120,24 @@
       "category": "portrait"
     },
     {
+      "src": "/images/gallery/shutter.jpg",
+      "title": "Shutter",
+      "category": "portrait"
+    },
+    {
+      "src": "/images/gallery/2A4A1701.jpg",
+      "title": "Railing",
+      "category": "portrait"
+    },
+    {
       "src": "/images/gallery/work-4.jpg",
       "title": "Smoke",
       "category": "shop"
+    },
+    {
+      "src": "/images/gallery/IMG_9589-Enhanced-SR-Edit.jpg",
+      "title": "Neon Portrait",
+      "category": "portrait"
     },
     {
       "src": "/images/gallery/IMG_5776.jpg",
