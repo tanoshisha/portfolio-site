@@ -11,6 +11,7 @@ backend:
 
 site_url: https://hayatonaoe.com
 display_url: https://hayatonaoe.com
+logo_url: /icon.png
 
 media_folder: public/images/gallery
 public_folder: /images/gallery
@@ -30,6 +31,9 @@ media_libraries:
 collections:
   - name: photos
     label: 写真
+    icon: photo_library
+    description: サイトに載せる写真。並び順＝サイトでの表示順（ドラッグで入れ替え）。保存すると約2分で公開されます。
+    editor: { preview: false }
     files:
       - name: photos
         label: 写真の一覧
@@ -38,8 +42,13 @@ collections:
         description: 並び順 = サイトでの表示順。ドラッグで入れ替えできます。
         fields:
           - name: heroSlides
-            label: トップのスライド写真
+            label: 🎞 トップのスライド写真
+            hint: サイトを開いて最初に大きく流れる写真（3〜8枚がおすすめ）
             widget: list
+            min: 1
+            max: 10
+            collapsed: true
+            add_to_top: true
             summary: "{{fields.src}}"
             fields:
               - { name: src, label: 写真, widget: image }
@@ -54,12 +63,15 @@ collections:
                   - { label: 上寄り, value: "center 25%" }
                   - { label: 下寄り, value: "center 75%" }
           - name: works
-            label: Works（撮影実績）
+            label: 💼 Works（撮影実績）
+            hint: お仕事の写真。上ほど先に表示されます。
             widget: list
-            summary: "{{fields.title}}"
+            collapsed: true
+            add_to_top: true
+            summary: "{{fields.title | default('（タイトルなし）')}}　{{fields.category}}"
             fields:
               - { name: src, label: 写真, widget: image }
-              - { name: title, label: タイトル, widget: string, required: false }
+              - { name: title, label: タイトル, widget: string, required: false, hint: "写真の下に出る名前。検索や読み上げの説明にも使われます（例：カフェの窓辺のポートレート）" }
               - name: category
                 label: カテゴリ
                 widget: select
@@ -68,9 +80,12 @@ collections:
                   - { label: Portrait（人物）, value: portrait }
                   - { label: Shop & Bar（お店）, value: shop }
           - name: personal
-            label: Gallery（個人作品）
+            label: 🖼 Gallery（個人作品）
+            hint: 街のスナップなど個人の作品。上ほど先に表示されます。
             widget: list
-            summary: "{{fields.title}}"
+            collapsed: true
+            add_to_top: true
+            summary: "{{fields.title | default('（タイトルなし）')}}"
             fields:
               - { name: src, label: 写真, widget: image }
-              - { name: title, label: タイトル, widget: string, required: false }
+              - { name: title, label: タイトル, widget: string, required: false, hint: "写っているものを1文で（検索や読み上げの説明に使われます）。例：夕暮れの街を自転車で走る人のシルエット" }
