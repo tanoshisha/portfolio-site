@@ -624,6 +624,8 @@ function useMotion(locked: boolean) {
           const target = id === "#" ? 0 : (document.querySelector(id) as HTMLElement | null);
           if (target === null) return;
           e.preventDefault();
+          // モーダル内のリンク（Request a shoot →）から飛ぶとき：止めてある慣性スクロールを先に動かす
+          lenis.start();
           lenis.scrollTo(target, { offset: id === "#" ? 0 : -60, duration: 1.6 });
         }
         // カテゴリ切替などで高さが変わったら位置を再計算
@@ -651,7 +653,8 @@ function useMotion(locked: boolean) {
           track.addEventListener("mouseenter", () => gsap.to(tw, { timeScale: 0.15, duration: 0.6 }));
           track.addEventListener("mouseleave", () => gsap.to(tw, { timeScale: 1, duration: 0.6 }));
         });
-        const skewTo = gsap.quickTo(".marquee-track img", "skewX", { duration: 0.5, ease: "power3" });
+        // 斜めにするのは帯（3本）に対して。写真1枚ずつ（約90枚）に掛けるとスクロールのたびに重くなる
+        const skewTo = gsap.quickTo(".marquee-track", "skewX", { duration: 0.5, ease: "power3" });
         lenis.on("scroll", ({ velocity }: { velocity: number }) => {
           const v = Math.max(-40, Math.min(40, velocity));
           loops.forEach((tw) => gsap.to(tw, { timeScale: 1 + Math.abs(v) / 4, duration: 0.3, overwrite: true }));
@@ -796,7 +799,16 @@ export default function Home() {
       Math.round(a[1] + (b[1] - a[1]) * t),
       Math.round(a[2] + (b[2] - a[2]) * t),
     ];
+    // スクロールのたびに毎回計算せず、1フレームに1回だけ（慣性スクロール中は scroll イベントが毎フレーム来るため）
+    let raf = 0;
     const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+    const update = () => {
       const viewCenter = window.scrollY + window.innerHeight / 2;
       const anchors: { pos: number; color: RGB }[] = [];
       const aboutEl = document.getElementById("about");
@@ -826,8 +838,11 @@ export default function Home() {
       setScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const solid = scrolled || menuOpen;
@@ -1105,6 +1120,7 @@ function AboutPricingContact() {
                 <select
                   name="type"
                   defaultValue=""
+                  required
                   className="mt-3 w-full border-b border-white/15 bg-transparent pb-3 text-[16px] text-neutral-100 outline-none transition-colors focus:border-white [&>option]:bg-neutral-900"
                 >
                   <option value="" disabled>選択してください</option>
@@ -1125,6 +1141,7 @@ function AboutPricingContact() {
                     type={f.type}
                     name={f.name}
                     placeholder={f.ph}
+                    required
                     className="mt-3 w-full border-b border-white/15 bg-transparent pb-3 text-[16px] text-neutral-100 outline-none transition-colors placeholder:text-neutral-600 focus:border-white"
                   />
                 </div>
@@ -1135,6 +1152,7 @@ function AboutPricingContact() {
                   rows={5}
                   name="message"
                   placeholder="ご相談内容"
+                  required
                   className="mt-3 w-full border-b border-white/15 bg-transparent pb-3 text-[16px] leading-7 text-neutral-100 outline-none transition-colors placeholder:text-neutral-600 focus:border-white"
                 />
               </div>

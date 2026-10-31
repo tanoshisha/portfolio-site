@@ -15,4 +15,7 @@ const eslintConfig = defineConfig([
   ]),
 ]);
 
+// scripts/ は Node で直接動かす補助スクリプト（require 形式）なのでチェック対象外
+eslintConfig.push({ ignores: ["scripts/**"] });
+
 export default eslintConfig;

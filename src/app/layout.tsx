@@ -13,12 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 日本語の書体。英字は Geist、日本語はこの書体で表示（細め〜中くらいの太さだけ読み込む）
+// 日本語の書体。英字は Geist、日本語はこの書体で表示（細めと標準の2段階だけ）。
+// preload: false が重要 — 日本語フォントは100以上の分割ファイルに分かれていて、
+// preload を有効にすると初回表示で全部（約2.9MB・240ファイル）を先読みしてしまう。
+// false にすると、画面に実際にある文字の分だけブラウザが取りに行く。
 const zenKaku = Zen_Kaku_Gothic_New({
   variable: "--font-jp",
-  weight: ["300", "400", "500"],
+  weight: ["300", "400"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
